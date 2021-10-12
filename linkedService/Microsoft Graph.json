@@ -1,0 +1,28 @@
+{
+	"name": "Microsoft Graph",
+	"properties": {
+		"description": "The linked service to access microsoft graph",
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://graph.microsoft.com/v1.0",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "AadServicePrincipal",
+			"servicePrincipalId": "9ba597aa-96e0-4297-80ac-9ce9fe9c7504",
+			"servicePrincipalKey": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "GraphVault",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "graphAppClientSecret"
+			},
+			"tenant": "178ab4db-1ad5-49ad-86a7-06a29409af8a",
+			"aadResourceId": "https://graph.microsoft.com"
+		},
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
