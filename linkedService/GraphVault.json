@@ -1,0 +1,10 @@
+{
+	"name": "GraphVault",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://kv-oea-daihackathon.vault.azure.net/"
+		}
+	}
+}
