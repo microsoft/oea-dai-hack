@@ -1,0 +1,58 @@
+{
+	"name": "Ingest devices from Graph via Intune",
+	"properties": {
+		"activities": [
+			{
+				"name": "IngestDevicesData_From_Intune",
+				"description": "Generates a \"Devices\" report/table using Intune",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "RestSource",
+						"httpRequestTimeout": "00:01:40",
+						"requestInterval": "00.00:00:00.010",
+						"requestMethod": "POST",
+						"requestBody": {
+							"value": "{ \n    \"reportName\": \"Devices\", \n    \"select\": [ \n        \"DeviceId\",\n        \"DeviceName\", \n        \"DeviceType\",\n        \"managementAgent\", \n        \"OwnerType\", \n        \"ComplianceState\", \n        \"PrimaryUser\", \n        \"UserId\", \n        \"UPN\", \n        \"UserEmail\", \n        \"UserName\"\n    ]\n} ",
+							"type": "Expression"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "DevicesData_Intune",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DevicesData_CSV",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}

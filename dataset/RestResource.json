@@ -1,0 +1,19 @@
+{
+	"name": "RestResource",
+	"properties": {
+		"description": "Connection to your REST/HTTP",
+		"linkedServiceName": {
+			"referenceName": "Microsoft Graph",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": {
+				"value": "v1.0/users",
+				"type": "Expression"
+			}
+		},
+		"schema": []
+	}
+}

@@ -1,0 +1,16 @@
+{
+	"name": "json1",
+	"properties": {
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "users.json",
+				"folderPath": "m365/AAD/users",
+				"fileSystem": "stage1np"
+			}
+		},
+		"schema": {}
+	}
+}
