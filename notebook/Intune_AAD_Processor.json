@@ -52,7 +52,7 @@
 				"source": [
 					"%run /OEA_py"
 				],
-				"execution_count": 36
+				"execution_count": 1
 			},
 			{
 				"cell_type": "code",
@@ -70,7 +70,7 @@
 				"source": [
 					"%run /example_modules_py"
 				],
-				"execution_count": 37
+				"execution_count": 2
 			},
 			{
 				"cell_type": "code",
@@ -104,7 +104,7 @@
 					"                                    ['LastCheckIn', 'timestamp', 'no-op'],\r\n",
 					"                                    ['PrimaryUserUPN', 'string', 'hash'],\r\n",
 					"                                    ['DeviceID', 'string', 'hash']]\r\n",
-					"        self.schemas['AAD_Devices'] =  [['accountEnabled','string','no-op'],\r\n",
+					"        self.schemas['AAD_Devices'] =  [['deviceAccountEnabled','string','no-op'],\r\n",
 					"                                        ['approximateLastLogonTimeStamp','string','no-op'],\r\n",
 					"                                        ['deviceId','string','hash'],\r\n",
 					"                                        ['deviceOSType','string','no-op'],\r\n",
@@ -130,7 +130,7 @@
 					"                                        ['userType', 'string', 'no-op'],\r\n",
 					"                                        ['jobTitle', 'string', 'no-op'],\r\n",
 					"                                        ['department', 'string', 'no-op'],\r\n",
-					"                                        ['accountEnabled', 'string', 'no-op'],\r\n",
+					"                                        ['userAccountEnabled', 'string', 'no-op'],\r\n",
 					"                                        ['usageLocation', 'string', 'no-op'],\r\n",
 					"                                        ['streetAddress', 'string', 'no-op'],\r\n",
 					"                                        ['state', 'string', 'no-op'],\r\n",
@@ -181,7 +181,7 @@
 					"\r\n",
 					""
 				],
-				"execution_count": 38
+				"execution_count": 13
 			},
 			{
 				"cell_type": "code",
@@ -200,7 +200,7 @@
 					"oea = OEA()\r\n",
 					"intune_aad = IntuneAADPackage(oea)"
 				],
-				"execution_count": 39
+				"execution_count": 14
 			},
 			{
 				"cell_type": "code",
@@ -218,7 +218,7 @@
 				"source": [
 					"intune_aad.process_devices_data_from_stage1()"
 				],
-				"execution_count": 40
+				"execution_count": 15
 			},
 			{
 				"cell_type": "code",
@@ -240,7 +240,7 @@
 					"spark.sql(\"create table if not exists s2_intune_aad.aad_devices using PARQUET location '\" + oea.stage2np + \"/m365/aad/devices'\")\r\n",
 					"spark.sql(\"create table if not exists s2_intune_aad.aad_users using PARQUET location '\" + oea.stage2np + \"/m365/aad/users'\")"
 				],
-				"execution_count": 41
+				"execution_count": 16
 			},
 			{
 				"cell_type": "code",
@@ -256,9 +256,9 @@
 					}
 				},
 				"source": [
-					"spark.sql('create table if not exists s2_intune_aad as select * from s2_intune_aad.aad_devices d, s2_intune_aad.aad_users u where u.id = d.deviceId')"
+					"spark.sql('create table if not exists s2_intune_aad.intune_aad_data as select * from s2_intune_aad.aad_devices d, s2_intune_aad.aad_users u where u.id = d.deviceId')"
 				],
-				"execution_count": 44
+				"execution_count": 18
 			}
 		]
 	}
