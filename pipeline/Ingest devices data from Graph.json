@@ -27,8 +27,7 @@
 					"sink": {
 						"type": "DelimitedTextSink",
 						"storeSettings": {
-							"type": "AzureBlobStorageWriteSettings",
-							"copyBehavior": "FlattenHierarchy"
+							"type": "AzureBlobStorageWriteSettings"
 						},
 						"formatSettings": {
 							"type": "DelimitedTextWriteSettings",
@@ -42,7 +41,7 @@
 						"mappings": [
 							{
 								"source": {
-									"path": "$['value'][0]['id']"
+									"path": "['id']"
 								},
 								"sink": {
 									"name": "EntryId",
@@ -51,7 +50,7 @@
 							},
 							{
 								"source": {
-									"path": "$['value'][0]['approximateLastSignInDateTime']"
+									"path": "['approximateLastSignInDateTime']"
 								},
 								"sink": {
 									"name": "LastCheckIn",
@@ -60,7 +59,7 @@
 							},
 							{
 								"source": {
-									"path": "$['value'][0]['deviceId']"
+									"path": "['deviceId']"
 								},
 								"sink": {
 									"name": "DeviceId"
@@ -68,7 +67,7 @@
 							},
 							{
 								"source": {
-									"path": "$['value'][0]['displayName']"
+									"path": "['displayName']"
 								},
 								"sink": {
 									"name": "DeviceName",
@@ -77,7 +76,7 @@
 							},
 							{
 								"source": {
-									"path": "$['value'][0]['isCompliant']"
+									"path": "['isCompliant']"
 								},
 								"sink": {
 									"name": "Compliant",
@@ -86,7 +85,7 @@
 							},
 							{
 								"source": {
-									"path": "$['value'][0]['isManaged']"
+									"path": "['isManaged']"
 								},
 								"sink": {
 									"name": "IsManaged",
@@ -95,7 +94,7 @@
 							},
 							{
 								"source": {
-									"path": "$['value'][0]['operatingSystem']"
+									"path": "['operatingSystem']"
 								},
 								"sink": {
 									"name": "OS",
@@ -104,7 +103,7 @@
 							},
 							{
 								"source": {
-									"path": "$['value'][0]['operatingSystemVersion']"
+									"path": "['operatingSystemVersion']"
 								},
 								"sink": {
 									"name": "OSVersion",
@@ -113,20 +112,23 @@
 							},
 							{
 								"source": {
-									"path": "$['value'][0]['sourceType']"
+									"path": "['physicalIds'][0]"
+								},
+								"sink": {
+									"name": "Ids"
+								}
+							},
+							{
+								"source": {
+									"path": "['sourceType']"
 								},
 								"sink": {
 									"name": "Ownership",
 									"type": "String"
 								}
-							},
-							{
-								"source": {
-									"path": "$['Column_1']"
-								}
 							}
 						],
-						"collectionReference": "$['value'][0]['physicalIds']",
+						"collectionReference": "$['value']",
 						"mapComplexValuesToString": true
 					}
 				},

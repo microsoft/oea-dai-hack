@@ -53,6 +53,10 @@
 				"type": "String"
 			},
 			{
+				"name": "Ids",
+				"type": "String"
+			},
+			{
 				"name": "Ownership",
 				"type": "String"
 			}
