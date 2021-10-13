@@ -1,0 +1,151 @@
+{
+	"name": "Ingest devices data from Graph",
+	"properties": {
+		"activities": [
+			{
+				"name": "IngestDevicesData_From_AAD",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "RestSource",
+						"httpRequestTimeout": "00:01:40",
+						"requestInterval": "00.00:00:00.010",
+						"requestMethod": "GET",
+						"paginationRules": {
+							"AbsoluteUrl": "$['@odata.nextLink']"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "['id']"
+								},
+								"sink": {
+									"name": "EntryId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['approximateLastSignInDateTime']"
+								},
+								"sink": {
+									"name": "LastCheckIn",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"path": "['deviceId']"
+								},
+								"sink": {
+									"name": "DeviceId"
+								}
+							},
+							{
+								"source": {
+									"path": "['displayName']"
+								},
+								"sink": {
+									"name": "DeviceName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['isCompliant']"
+								},
+								"sink": {
+									"name": "Compliant",
+									"type": "Boolean"
+								}
+							},
+							{
+								"source": {
+									"path": "['isManaged']"
+								},
+								"sink": {
+									"name": "IsManaged",
+									"type": "Boolean"
+								}
+							},
+							{
+								"source": {
+									"path": "['operatingSystem']"
+								},
+								"sink": {
+									"name": "OS",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['operatingSystemVersion']"
+								},
+								"sink": {
+									"name": "OSVersion",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['physicalIds'][0]"
+								},
+								"sink": {
+									"name": "Ids"
+								}
+							},
+							{
+								"source": {
+									"path": "['sourceType']"
+								},
+								"sink": {
+									"name": "Ownership",
+									"type": "String"
+								}
+							}
+						],
+						"collectionReference": "$['value']",
+						"mapComplexValuesToString": true
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MicrosoftGraphDevicesEndpoint",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Devices_Data_Aad_Devices",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}

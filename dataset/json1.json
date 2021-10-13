@@ -1,14 +1,18 @@
 {
 	"name": "json1",
 	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage",
+			"type": "LinkedServiceReference"
+		},
 		"annotations": [],
 		"type": "Json",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobFSLocation",
+				"type": "AzureBlobStorageLocation",
 				"fileName": "users.json",
 				"folderPath": "m365/AAD/users",
-				"fileSystem": "stage1np"
+				"container": "stage1np"
 			}
 		},
 		"schema": {}

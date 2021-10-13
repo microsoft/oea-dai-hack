@@ -1,6 +1,10 @@
 {
 	"name": "data_lake_binary",
 	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage",
+			"type": "LinkedServiceReference"
+		},
 		"parameters": {
 			"filesystem": {
 				"type": "string"
@@ -16,15 +20,7 @@
 		"type": "Binary",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobFSLocation",
-				"folderPath": {
-					"value": "@dataset().directory",
-					"type": "Expression"
-				},
-				"fileSystem": {
-					"value": "@dataset().filesystem",
-					"type": "Expression"
-				}
+				"type": "AzureBlobStorageLocation"
 			}
 		}
 	},

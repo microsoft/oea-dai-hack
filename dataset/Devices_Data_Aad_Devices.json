@@ -1,0 +1,65 @@
+{
+	"name": "Devices_Data_Aad_Devices",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "devices.csv",
+				"folderPath": "m365/AAD/devices",
+				"container": "stage1np"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "EntryId",
+				"type": "String"
+			},
+			{
+				"name": "LastCheckIn",
+				"type": "String"
+			},
+			{
+				"name": "DeviceId",
+				"type": "String"
+			},
+			{
+				"name": "DeviceName",
+				"type": "String"
+			},
+			{
+				"name": "Compliant",
+				"type": "String"
+			},
+			{
+				"name": "IsManaged",
+				"type": "String"
+			},
+			{
+				"name": "OS",
+				"type": "String"
+			},
+			{
+				"name": "OSVersion",
+				"type": "String"
+			},
+			{
+				"name": "Ids",
+				"type": "String"
+			},
+			{
+				"name": "Ownership",
+				"type": "String"
+			}
+		]
+	}
+}

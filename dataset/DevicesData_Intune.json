@@ -12,7 +12,7 @@
 		"type": "RestResource",
 		"typeProperties": {
 			"relativeUrl": {
-				"value": "beta/deviceManagement/reports/exportJobs",
+				"value": "/beta/deviceManagement/reports/exportJobs",
 				"type": "Expression"
 			}
 		},
