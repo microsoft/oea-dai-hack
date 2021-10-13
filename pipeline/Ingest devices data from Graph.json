@@ -27,7 +27,8 @@
 					"sink": {
 						"type": "DelimitedTextSink",
 						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
+							"type": "AzureBlobFSWriteSettings",
+							"copyBehavior": "FlattenHierarchy"
 						},
 						"formatSettings": {
 							"type": "DelimitedTextWriteSettings",
@@ -44,7 +45,53 @@
 									"path": "['id']"
 								},
 								"sink": {
-									"ordinal": 1
+									"name": "EntryId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['approximateLastSignInDateTime']"
+								},
+								"sink": {
+									"name": "LastCheckIn",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"path": "['deviceId']"
+								},
+								"sink": {
+									"name": "Id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['displayName']"
+								},
+								"sink": {
+									"name": "DeviceName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "['isCompliant']"
+								},
+								"sink": {
+									"name": "Compliant",
+									"type": "Boolean"
+								}
+							},
+							{
+								"source": {
+									"path": "['operatingSystem']"
+								},
+								"sink": {
+									"name": "OS",
+									"type": "String"
 								}
 							},
 							{
@@ -52,23 +99,8 @@
 									"path": "['operatingSystemVersion']"
 								},
 								"sink": {
-									"ordinal": 2
-								}
-							},
-							{
-								"source": {
-									"path": "['profileType']"
-								},
-								"sink": {
-									"ordinal": 3
-								}
-							},
-							{
-								"source": {
-									"path": "['registrationDateTime']"
-								},
-								"sink": {
-									"ordinal": 4
+									"name": "OSVersion",
+									"type": "String"
 								}
 							},
 							{
@@ -76,7 +108,8 @@
 									"path": "['sourceType']"
 								},
 								"sink": {
-									"ordinal": 5
+									"name": "Ownership",
+									"type": "String"
 								}
 							}
 						],
