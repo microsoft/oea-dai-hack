@@ -2,6 +2,10 @@
 	"name": "RestResource1",
 	"properties": {
 		"description": "Connection to your REST/HTTP",
+		"linkedServiceName": {
+			"referenceName": "Microsoft Graph",
+			"type": "LinkedServiceReference"
+		},
 		"annotations": [],
 		"type": "RestResource",
 		"typeProperties": {
