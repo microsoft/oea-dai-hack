@@ -27,19 +27,35 @@
 		},
 		"schema": [
 			{
-				"name": "0020137c-8212-4355-999c-b2ddfcf76cfc",
+				"name": "EntryId",
 				"type": "String"
 			},
 			{
-				"name": "10.0.22136.1001",
+				"name": "LastCheckIn",
 				"type": "String"
 			},
 			{
-				"name": "RegisteredDevice",
+				"name": "Id",
 				"type": "String"
 			},
 			{
-				"name": "2021-07-07T01:41:23Z",
+				"name": "DeviceName",
+				"type": "String"
+			},
+			{
+				"name": "Compliant",
+				"type": "String"
+			},
+			{
+				"name": "OS",
+				"type": "String"
+			},
+			{
+				"name": "OSVersion",
+				"type": "String"
+			},
+			{
+				"name": "Ownership",
 				"type": "String"
 			}
 		]
