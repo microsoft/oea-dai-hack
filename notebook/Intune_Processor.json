@@ -52,7 +52,7 @@
 				"source": [
 					"%run /OEA_py"
 				],
-				"execution_count": 56
+				"execution_count": 10
 			},
 			{
 				"cell_type": "code",
@@ -70,7 +70,7 @@
 				"source": [
 					"%run /example_modules_py"
 				],
-				"execution_count": 57
+				"execution_count": 11
 			},
 			{
 				"cell_type": "code",
@@ -88,7 +88,7 @@
 				"source": [
 					"class IntuneModule(BaseOEAModule):\r\n",
 					"    # Defines the intune data processing module.\r\n",
-					"    def __init__(self, oea, source_folder='m365', pseudonymize = True):\r\n",
+					"    def __init__(self, oea, source_folder='m365'):\r\n",
 					"\r\n",
 					"        BaseOEAModule.__init__(self, oea, source_folder)\r\n",
 					"        \r\n",
@@ -97,24 +97,32 @@
 					"        self.schemas['Devices'] =   [['DeviceName', 'string', 'no-op'],\r\n",
 					"                                    ['ManagedBy', 'string', 'no-op'],\r\n",
 					"                                    ['Ownership', 'string', 'no-op'],\r\n",
-					"                                    ['Compliane', 'string', 'no-op'],\r\n",
+					"                                    ['Compliance','string','no-op'],\r\n",
 					"                                    ['OS', 'string', 'no-op'],\r\n",
 					"                                    ['OSVersion', 'string', 'no-op'],\r\n",
 					"                                    ['LastCheckIn', 'timestamp', 'no-op'],\r\n",
 					"                                    ['PrimaryUserUPN', 'string', 'hash'],\r\n",
-					"                                    ['DeviceID', 'string', 'no-op']]\r\n",
+					"                                    ['DeviceID', 'string', 'hash']]\r\n",
 					"\r\n",
 					"    def process_devices_data_from_stage1(self):\r\n",
 					"        logger.info(\"Processing intune reports data from: \" + self.stage1np)\r\n",
 					"        spark_schema = self.oea.to_spark_schema(self.schemas['Devices'])\r\n",
 					"        df = spark.read.csv(self.stage1np_devices + '/*.csv', header='true', schema=spark_schema)\r\n",
 					"        df = df.dropDuplicates(['DeviceID'])\r\n",
-					"        df.coalesce(1).write.format('parquet').mode('overwrite').option(\"mergeSchema\", \"true\").save(self.stage2np + '/intune/devices')\r\n",
+					"        df.write.parquet(self.stage2np + '/Intunes/Devices/devices.parquet', mode='overwrite')\r\n",
+					"\r\n",
+					"    def process_devices_data_from_stage2(self):\r\n",
+					"        spark_schema = self.oea.to_spark_schema(self.schemas['Devices'])\r\n",
+					"        df = spark.read.parquet(self.stage2np + '/Intunes/Devices/*.parquet', header='true', schema=spark_schema)\r\n",
+					"        #sqlContext.registerDataFrameAsTable(spark.read.format('parquet').load(oea.stage2np + '/m365/Intunes/*'), 'Devices')\r\n",
+					"        #df = spark.sql(\"select DeviceID,PrimaryUserUPN,LastCheckIn,OSVersion,OS,Ownership,ManagedBy,DeviceName from Devices\")\r\n",
+					"        df.write.format('parquet').mode('overwrite').save(self.stage2np + '/m365/Intunes/Devices')\r\n",
+					"\r\n",
 					"\r\n",
 					"\r\n",
 					""
 				],
-				"execution_count": 67
+				"execution_count": 12
 			},
 			{
 				"cell_type": "code",
@@ -133,7 +141,7 @@
 					"oea = OEA()\r\n",
 					"intune = IntuneModule(oea)"
 				],
-				"execution_count": 68
+				"execution_count": 13
 			},
 			{
 				"cell_type": "code",
@@ -151,7 +159,7 @@
 				"source": [
 					"intune.process_devices_data_from_stage1()"
 				],
-				"execution_count": 69
+				"execution_count": 14
 			},
 			{
 				"cell_type": "code",
@@ -167,10 +175,46 @@
 					}
 				},
 				"source": [
-					"intune.create_stage2_db('PARQUET')\r\n",
-					"spark.sql('CREATE DATABASE IF NOT EXISTS s2_intune')\r\n",
-					"\r\n",
-					"spark.sql(\"create table if not exists s2_intune.devices using PARQUET location '\" + self.stage2np + \"/intune/devices'\")"
+					"intune.process_devices_data_from_stage2()"
+				],
+				"execution_count": 15
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"#intune.create_stage2_db('parquet')\r\n",
+					"spark.sql('CREATE DATABASE if not exists s2_Intune')\r\n",
+					"spark.sql(\"create table if not exists s2_Intune.devices using PARQUET location '\" + oea.stage2np + \"/m365/Intunes/Devices'\")\r\n",
+					""
+				],
+				"execution_count": 16
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					""
 				],
 				"execution_count": null
 			}
