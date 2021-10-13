@@ -1,5 +1,5 @@
 {
-	"name": "DevicesData_CSV",
+	"name": "DevicesData_Intune_CSV",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "syn-oea-daihackathon-WorkspaceDefaultStorage",
