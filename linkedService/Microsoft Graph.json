@@ -5,7 +5,7 @@
 		"annotations": [],
 		"type": "RestService",
 		"typeProperties": {
-			"url": "https://graph.microsoft.com/",
+			"url": "https://graph.microsoft.com",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "AadServicePrincipal",
 			"servicePrincipalId": "9ba597aa-96e0-4297-80ac-9ce9fe9c7504",
