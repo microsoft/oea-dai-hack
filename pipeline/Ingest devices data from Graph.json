@@ -41,7 +41,7 @@
 						"mappings": [
 							{
 								"source": {
-									"path": "$['value'][0]['id']"
+									"path": "['id']"
 								},
 								"sink": {
 									"ordinal": 1
@@ -49,7 +49,7 @@
 							},
 							{
 								"source": {
-									"path": "$['value'][0]['createdDateTime']"
+									"path": "['operatingSystemVersion']"
 								},
 								"sink": {
 									"ordinal": 2
@@ -57,7 +57,7 @@
 							},
 							{
 								"source": {
-									"path": "$['value'][0]['deviceCategory']"
+									"path": "['profileType']"
 								},
 								"sink": {
 									"ordinal": 3
@@ -65,7 +65,7 @@
 							},
 							{
 								"source": {
-									"path": "$['value'][0]['deviceId']"
+									"path": "['registrationDateTime']"
 								},
 								"sink": {
 									"ordinal": 4
@@ -73,253 +73,15 @@
 							},
 							{
 								"source": {
-									"path": "$['value'][0]['deviceOwnership']"
+									"path": "['sourceType']"
 								},
 								"sink": {
 									"ordinal": 5
 								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['deviceVersion']"
-								},
-								"sink": {
-									"ordinal": 6
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['displayName']"
-								},
-								"sink": {
-									"ordinal": 7
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['domainName']"
-								},
-								"sink": {
-									"ordinal": 8
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['enrollmentProfileName']"
-								},
-								"sink": {
-									"ordinal": 9
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['enrollmentType']"
-								},
-								"sink": {
-									"ordinal": 10
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['manufacturer']"
-								},
-								"sink": {
-									"ordinal": 11
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['mdmAppId']"
-								},
-								"sink": {
-									"ordinal": 12
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['model']"
-								},
-								"sink": {
-									"ordinal": 13
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['onPremisesLastSyncDateTime']"
-								},
-								"sink": {
-									"ordinal": 14
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['onPremisesSyncEnabled']"
-								},
-								"sink": {
-									"ordinal": 15
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['operatingSystem']"
-								},
-								"sink": {
-									"ordinal": 16
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['operatingSystemVersion']"
-								},
-								"sink": {
-									"ordinal": 17
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['extensionAttributes']['extensionAttribute1']"
-								},
-								"sink": {
-									"ordinal": 18
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['extensionAttributes']['extensionAttribute2']"
-								},
-								"sink": {
-									"ordinal": 19
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['extensionAttributes']['extensionAttribute3']"
-								},
-								"sink": {
-									"ordinal": 20
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['extensionAttributes']['extensionAttribute4']"
-								},
-								"sink": {
-									"ordinal": 21
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['extensionAttributes']['extensionAttribute5']"
-								},
-								"sink": {
-									"ordinal": 22
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['extensionAttributes']['extensionAttribute6']"
-								},
-								"sink": {
-									"ordinal": 23
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['extensionAttributes']['extensionAttribute7']"
-								},
-								"sink": {
-									"ordinal": 24
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['extensionAttributes']['extensionAttribute8']"
-								},
-								"sink": {
-									"ordinal": 25
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['extensionAttributes']['extensionAttribute9']"
-								},
-								"sink": {
-									"ordinal": 26
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['extensionAttributes']['extensionAttribute10']"
-								},
-								"sink": {
-									"ordinal": 27
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['extensionAttributes']['extensionAttribute11']"
-								},
-								"sink": {
-									"ordinal": 28
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['extensionAttributes']['extensionAttribute12']"
-								},
-								"sink": {
-									"ordinal": 29
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['extensionAttributes']['extensionAttribute13']"
-								},
-								"sink": {
-									"ordinal": 30
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['extensionAttributes']['extensionAttribute14']"
-								},
-								"sink": {
-									"ordinal": 31
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['extensionAttributes']['extensionAttribute15']"
-								},
-								"sink": {
-									"ordinal": 32
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['alternativeSecurityIds'][0]['type']"
-								},
-								"sink": {
-									"ordinal": 33
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['alternativeSecurityIds'][0]['identityProvider']"
-								},
-								"sink": {
-									"ordinal": 34
-								}
-							},
-							{
-								"source": {
-									"path": "$['value'][0]['alternativeSecurityIds'][0]['key']"
-								},
-								"sink": {
-									"ordinal": 35
-								}
 							}
-						]
+						],
+						"collectionReference": "$['value']",
+						"mapComplexValuesToString": true
 					}
 				},
 				"inputs": [
