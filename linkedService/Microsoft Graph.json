@@ -7,16 +7,18 @@
 		"typeProperties": {
 			"url": "https://graph.microsoft.com",
 			"enableServerCertificateValidation": true,
-			"authenticationType": "Basic",
-			"userName": "admin@contosoisd3.onmicrosoft.com",
-			"password": {
+			"authenticationType": "AadServicePrincipal",
+			"servicePrincipalId": "9ba597aa-96e0-4297-80ac-9ce9fe9c7504",
+			"servicePrincipalKey": {
 				"type": "AzureKeyVaultSecret",
 				"store": {
 					"referenceName": "GraphVault",
 					"type": "LinkedServiceReference"
 				},
-				"secretName": "password"
-			}
+				"secretName": "graphAppClientSecret"
+			},
+			"tenant": "5168b241-50f5-4d78-8cc7-890e07dbb940",
+			"aadResourceId": "https://graph.microsoft.com"
 		},
 		"connectVia": {
 			"referenceName": "AutoResolveIntegrationRuntime",
