@@ -1,18 +1,22 @@
 {
-	"name": "Notebook 1",
+	"name": "Intune_Processor",
 	"properties": {
 		"nbformat": 4,
 		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "spark3p1sm",
+			"type": "BigDataPoolReference"
+		},
 		"sessionProperties": {
 			"driverMemory": "28g",
 			"driverCores": 4,
 			"executorMemory": "28g",
 			"executorCores": 4,
-			"numExecutors": 2,
+			"numExecutors": 4,
 			"conf": {
 				"spark.dynamicAllocation.enabled": "false",
-				"spark.dynamicAllocation.minExecutors": "2",
-				"spark.dynamicAllocation.maxExecutors": "2"
+				"spark.dynamicAllocation.minExecutors": "4",
+				"spark.dynamicAllocation.maxExecutors": "4"
 			}
 		},
 		"metadata": {
@@ -20,10 +24,25 @@
 			"enableDebugMode": false,
 			"kernelspec": {
 				"name": "synapse_pyspark",
-				"display_name": "python"
+				"display_name": "Synapse PySpark"
 			},
 			"language_info": {
 				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/7b9a4896-4541-483f-bdc7-d8f4ec6be3ee/resourceGroups/rg-oea-daihackathon/providers/Microsoft.Synapse/workspaces/syn-oea-daihackathon/bigDataPools/spark3p1sm",
+				"name": "spark3p1sm",
+				"type": "Spark",
+				"endpoint": "https://syn-oea-daihackathon.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/spark3p1sm",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "3.1",
+				"nodeCount": 3,
+				"cores": 4,
+				"memory": 28,
+				"automaticScaleJobs": false
 			},
 			"sessionKeepAliveTimeout": 30
 		},
@@ -31,9 +50,107 @@
 			{
 				"cell_type": "code",
 				"source": [
+					"%run /OEA_py"
+				],
+				"execution_count": 1
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"%run /example_modules_py"
+				],
+				"execution_count": 2
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"class IntuneModule(BaseOEAModule):\r\n",
+					"    # Defines the intune data processing module.\r\n",
+					"    def __init__(self, oea, source_folder='m365'):\r\n",
+					"\r\n",
+					"        BaseOEAModule.__init__(self, oea, source_folder)\r\n",
+					"        \r\n",
+					"        self.stage1np_devices = self.stage1np + '/intune/devices'\r\n",
+					"\r\n",
+					"        self.schemas['Devices'] =   [['DeviceName', 'string', 'no-op'],\r\n",
+					"                                    ['ManagedBy', 'string', 'no-op'],\r\n",
+					"                                    ['Ownership', 'string', 'no-op'],\r\n",
+					"                                    ['OS', 'string', 'no-op'],\r\n",
+					"                                    ['OSVersion', 'string', 'no-op'],\r\n",
+					"                                    ['LastCheckIn', 'timestamp', 'no-op'],\r\n",
+					"                                    ['PrimaryUserUPN', 'string', 'hash'],\r\n",
+					"                                    ['DeviceID', 'string', 'no-op']]\r\n",
+					"\r\n",
+					"    def process_devices_data_from_stage1(self):\r\n",
+					"        logger.info(\"Processing intune reports data from: \" + self.stage1np)\r\n",
+					"        spark_schema = self.oea.to_spark_schema(self.schemas['Devices'])\r\n",
+					"        df = spark.read.csv(self.stage1np_devices + '/*.csv', header='true', schema=spark_schema)\r\n",
+					"        df = df.dropDuplicates(['DeviceID'])\r\n",
+					"        df.write.format('parquet').mode('overwrite').option(\"mergeSchema\", \"true\").save(self.stage2np + '/Intunes/Devices')\r\n",
+					"\r\n",
+					"\r\n",
 					""
 				],
-				"execution_count": null
+				"execution_count": 38
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"oea = OEA()\r\n",
+					"intune = IntuneModule(oea)"
+				],
+				"execution_count": 39
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"intune.process_devices_data_from_stage1()"
+				],
+				"execution_count": 40
 			}
 		]
 	}
