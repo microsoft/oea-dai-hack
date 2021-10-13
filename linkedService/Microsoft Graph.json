@@ -5,7 +5,6 @@
 		"annotations": [],
 		"type": "RestService",
 		"typeProperties": {
-			"url": "https://graph.microsoft.com/",
 			"url": "https://graph.microsoft.com/v1.0/",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "AadServicePrincipal",
@@ -18,7 +17,7 @@
 				},
 				"secretName": "graphAppClientSecret"
 			},
-			"tenant": "178ab4db-1ad5-49ad-86a7-06a29409af8a",
+			"tenant": "5168b241-50f5-4d78-8cc7-890e07dbb940",
 			"aadResourceId": "https://graph.microsoft.com"
 		},
 		"connectVia": {
