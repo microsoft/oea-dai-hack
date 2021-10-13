@@ -97,7 +97,7 @@
 					"        self.schemas['Devices'] =   [['DeviceName', 'string', 'no-op'],\r\n",
 					"                                    ['ManagedBy', 'string', 'no-op'],\r\n",
 					"                                    ['Ownership', 'string', 'no-op'],\r\n",
-					"                                    ['Compliane', 'string', 'no-op'],\r\n",
+					"                                    ['Compliance', 'string', 'no-op'],\r\n",
 					"                                    ['OS', 'string', 'no-op'],\r\n",
 					"                                    ['OSVersion', 'string', 'no-op'],\r\n",
 					"                                    ['LastCheckIn', 'timestamp', 'no-op'],\r\n",
