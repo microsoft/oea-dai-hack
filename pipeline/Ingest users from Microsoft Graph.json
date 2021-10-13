@@ -25,15 +25,55 @@
 						}
 					},
 					"sink": {
-						"type": "JsonSink",
+						"type": "DelimitedTextSink",
 						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
+							"type": "AzureBlobStorageWriteSettings",
+							"copyBehavior": "FlattenHierarchy"
 						},
 						"formatSettings": {
-							"type": "JsonWriteSettings"
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
 						}
 					},
-					"enableStaging": false
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['value'][0]['givenName']"
+								},
+								"sink": {
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['surname']"
+								},
+								"sink": {
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['userPrincipalName']"
+								},
+								"sink": {
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['id']"
+								},
+								"sink": {
+									"type": "String"
+								}
+							}
+						]
+					}
 				},
 				"inputs": [
 					{
@@ -43,7 +83,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "json",
+						"referenceName": "CSV",
 						"type": "DatasetReference"
 					}
 				]
