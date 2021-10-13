@@ -42,7 +42,7 @@
 						"mappings": [
 							{
 								"source": {
-									"path": "['id']"
+									"path": "$['value'][0]['id']"
 								},
 								"sink": {
 									"name": "EntryId",
@@ -51,7 +51,7 @@
 							},
 							{
 								"source": {
-									"path": "['approximateLastSignInDateTime']"
+									"path": "$['value'][0]['approximateLastSignInDateTime']"
 								},
 								"sink": {
 									"name": "LastCheckIn",
@@ -60,7 +60,7 @@
 							},
 							{
 								"source": {
-									"path": "['deviceId']"
+									"path": "$['value'][0]['deviceId']"
 								},
 								"sink": {
 									"name": "DeviceId"
@@ -68,7 +68,7 @@
 							},
 							{
 								"source": {
-									"path": "['displayName']"
+									"path": "$['value'][0]['displayName']"
 								},
 								"sink": {
 									"name": "DeviceName",
@@ -77,7 +77,7 @@
 							},
 							{
 								"source": {
-									"path": "['isCompliant']"
+									"path": "$['value'][0]['isCompliant']"
 								},
 								"sink": {
 									"name": "Compliant",
@@ -86,7 +86,7 @@
 							},
 							{
 								"source": {
-									"path": "['isManaged']"
+									"path": "$['value'][0]['isManaged']"
 								},
 								"sink": {
 									"name": "IsManaged",
@@ -95,7 +95,7 @@
 							},
 							{
 								"source": {
-									"path": "['operatingSystem']"
+									"path": "$['value'][0]['operatingSystem']"
 								},
 								"sink": {
 									"name": "OS",
@@ -104,7 +104,7 @@
 							},
 							{
 								"source": {
-									"path": "['operatingSystemVersion']"
+									"path": "$['value'][0]['operatingSystemVersion']"
 								},
 								"sink": {
 									"name": "OSVersion",
@@ -113,15 +113,20 @@
 							},
 							{
 								"source": {
-									"path": "['sourceType']"
+									"path": "$['value'][0]['sourceType']"
 								},
 								"sink": {
 									"name": "Ownership",
 									"type": "String"
 								}
+							},
+							{
+								"source": {
+									"path": "$['Column_1']"
+								}
 							}
 						],
-						"collectionReference": "$['value']",
+						"collectionReference": "$['value'][0]['physicalIds']",
 						"mapComplexValuesToString": true
 					}
 				},
