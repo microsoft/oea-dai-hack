@@ -27,15 +27,19 @@
 		},
 		"schema": [
 			{
+				"name": "0020137c-8212-4355-999c-b2ddfcf76cfc",
 				"type": "String"
 			},
 			{
+				"name": "10.0.22136.1001",
 				"type": "String"
 			},
 			{
+				"name": "RegisteredDevice",
 				"type": "String"
 			},
 			{
+				"name": "2021-07-07T01:41:23Z",
 				"type": "String"
 			}
 		]
