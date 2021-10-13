@@ -52,7 +52,7 @@
 				"source": [
 					"%run /OEA_py"
 				],
-				"execution_count": 1
+				"execution_count": 2
 			},
 			{
 				"cell_type": "code",
@@ -70,7 +70,7 @@
 				"source": [
 					"%run /example_modules_py"
 				],
-				"execution_count": 2
+				"execution_count": 3
 			},
 			{
 				"cell_type": "code",
@@ -108,7 +108,7 @@
 					"                                        ['LastCheckIn','string','no-op'],\r\n",
 					"                                        ['DeviceId','string','hash'],\r\n",
 					"                                        ['DeviceName','string','no-op'],\r\n",
-					"                                        ['Compliant','bool','no-op'],\r\n",
+					"                                        ['Compliant','string','no-op'],\r\n",
 					"                                        ['IsManaged','string','no-op'],\r\n",
 					"                                        ['OS','string','no-op'],\r\n",
 					"                                        ['OSVersion','string','no-op'],\r\n",
@@ -151,7 +151,7 @@
 					"\r\n",
 					""
 				],
-				"execution_count": 1
+				"execution_count": 7
 			},
 			{
 				"cell_type": "code",
@@ -170,7 +170,7 @@
 					"oea = OEA()\r\n",
 					"intune_aad = IntuneAADPackage(oea)"
 				],
-				"execution_count": 14
+				"execution_count": 8
 			},
 			{
 				"cell_type": "code",
@@ -188,7 +188,7 @@
 				"source": [
 					"intune_aad.process_devices_data_from_stage1()"
 				],
-				"execution_count": 15
+				"execution_count": 9
 			},
 			{
 				"cell_type": "code",
@@ -209,7 +209,7 @@
 					"spark.sql(\"create table if not exists s2_m365_intune.aad_devices using PARQUET location '\" + oea.stage2np + \"/m365/aad/devices'\")\r\n",
 					"spark.sql(\"create table if not exists s2_m365_intune.aad_users using PARQUET location '\" + oea.stage2np + \"/m365/aad/users'\")"
 				],
-				"execution_count": 16
+				"execution_count": 10
 			},
 			{
 				"cell_type": "code",
