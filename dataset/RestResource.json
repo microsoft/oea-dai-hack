@@ -10,7 +10,7 @@
 		"type": "RestResource",
 		"typeProperties": {
 			"relativeUrl": {
-				"value": "users?$select=givenName,surname,userPrincipalName,id",
+				"value": "/v1.0/users?$select=givenName,surname,userPrincipalName,id",
 				"type": "Expression"
 			}
 		},
