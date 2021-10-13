@@ -27,7 +27,7 @@
 					"sink": {
 						"type": "DelimitedTextSink",
 						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings",
+							"type": "AzureBlobStorageWriteSettings",
 							"copyBehavior": "FlattenHierarchy"
 						},
 						"formatSettings": {
@@ -63,8 +63,7 @@
 									"path": "['deviceId']"
 								},
 								"sink": {
-									"name": "Id",
-									"type": "String"
+									"name": "DeviceId"
 								}
 							},
 							{
@@ -82,6 +81,15 @@
 								},
 								"sink": {
 									"name": "Compliant",
+									"type": "Boolean"
+								}
+							},
+							{
+								"source": {
+									"path": "['isManaged']"
+								},
+								"sink": {
+									"name": "IsManaged",
 									"type": "Boolean"
 								}
 							},
@@ -125,7 +133,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DevicesData_CSV",
+						"referenceName": "Devices_Data_Aad_Devices",
 						"type": "DatasetReference"
 					}
 				]
