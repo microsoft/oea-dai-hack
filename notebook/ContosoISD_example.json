@@ -4,14 +4,14 @@
 		"nbformat": 4,
 		"nbformat_minor": 2,
 		"bigDataPool": {
-			"referenceName": "spark4p2sm",
+			"referenceName": "spark3p1sm",
 			"type": "BigDataPoolReference"
 		},
 		"sessionProperties": {
-			"driverMemory": "56g",
-			"driverCores": 8,
-			"executorMemory": "56g",
-			"executorCores": 8,
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
 			"numExecutors": 4,
 			"conf": {
 				"spark.dynamicAllocation.enabled": "false",
@@ -30,18 +30,18 @@
 				"name": "python"
 			},
 			"a365ComputeOptions": {
-				"id": "/subscriptions/7b9a4896-4541-483f-bdc7-d8f4ec6be3ee/resourceGroups/rg-oea-daihackathon/providers/Microsoft.Synapse/workspaces/syn-oea-daihackathon/bigDataPools/spark4p2sm",
-				"name": "spark4p2sm",
+				"id": "/subscriptions/7b9a4896-4541-483f-bdc7-d8f4ec6be3ee/resourceGroups/rg-oea-daihackathon/providers/Microsoft.Synapse/workspaces/syn-oea-daihackathon/bigDataPools/spark3p1sm",
+				"name": "spark3p1sm",
 				"type": "Spark",
-				"endpoint": "https://syn-oea-daihackathon.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/spark4p2sm",
+				"endpoint": "https://syn-oea-daihackathon.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/spark3p1sm",
 				"auth": {
 					"type": "AAD",
 					"authResource": "https://dev.azuresynapse.net"
 				},
-				"sparkVersion": "2.4",
-				"nodeCount": 10,
-				"cores": 8,
-				"memory": 56,
+				"sparkVersion": "3.1",
+				"nodeCount": 3,
+				"cores": 4,
+				"memory": 28,
 				"automaticScaleJobs": false
 			},
 			"sessionKeepAliveTimeout": 30
@@ -90,7 +90,7 @@
 				"source": [
 					"%run /OEA_py"
 				],
-				"execution_count": 1
+				"execution_count": 17
 			},
 			{
 				"cell_type": "code",
@@ -109,7 +109,7 @@
 				"source": [
 					"%run /example_modules_py"
 				],
-				"execution_count": null
+				"execution_count": 18
 			},
 			{
 				"cell_type": "code",
@@ -131,7 +131,7 @@
 					"m365 = M365(oea)\r\n",
 					"contoso_sis = ContosoSIS(oea, 'contoso_sis', False)"
 				],
-				"execution_count": 3
+				"execution_count": 19
 			},
 			{
 				"cell_type": "code",
@@ -152,7 +152,7 @@
 					"contoso_sis.copy_test_data_to_stage1()\r\n",
 					"m365.copy_test_data_to_stage1()"
 				],
-				"execution_count": 4
+				"execution_count": 20
 			},
 			{
 				"cell_type": "code",
@@ -175,7 +175,7 @@
 					"contoso_sis.process_data_from_stage1()\r\n",
 					"m365.process_activity_data_from_stage1()"
 				],
-				"execution_count": 5
+				"execution_count": 21
 			},
 			{
 				"cell_type": "code",
@@ -206,6 +206,9 @@
 					"and sm.section_id = s.ExternalId\")\r\n",
 					"df.write.format('parquet').mode('overwrite').save(oea.stage2np + '/ContosoISD/SectionMark')\r\n",
 					"\r\n",
+					"sqlContext.registerDataFrameAsTable(spark.read.format('parquet').load(oea.stage2np + '/contoso_sis/studentdemographics'), 'Demographics')\r\n",
+					"df.write.format('parquet').mode('overwrite').save(oea.stage2np + '/ContosoISD/StudentDemographics')\r\n",
+					"\r\n",
 					"# Repeat the above process, this time for student attendance\r\n",
 					"# Convert id values to use the Person.Id, Org.Id and Section.Id values\r\n",
 					"sqlContext.registerDataFrameAsTable(spark.read.format('parquet').load(oea.stage2np + '/contoso_sis/studentattendance'), 'Attendance')\r\n",
@@ -224,7 +227,7 @@
 					"df = spark.sql(\"select Id, Name, Code, Description, ExternalId, CreateDate, LastModifiedDate, IsActive, CalendarId, 'Math' Department from Course\")\r\n",
 					"df.write.format('parquet').mode('overwrite').save(oea.stage2np + '/ContosoISD/Course')"
 				],
-				"execution_count": 6
+				"execution_count": 16
 			},
 			{
 				"cell_type": "code",
@@ -242,29 +245,27 @@
 				},
 				"source": [
 					"# 4) Create spark db's that point to the data in the data lake to allow for connecting via Power BI through use of the Serverless SQL endpoint.\r\n",
-					"contoso_sis.create_stage2_db('PARQUET')\r\n",
-					"m365.create_stage2_db('PARQUET')\r\n",
 					"\r\n",
-					"spark.sql('CREATE DATABASE IF NOT EXISTS s2_ContosoISD')\r\n",
-					"spark.sql(\"create table if not exists s2_ContosoISD.Activity using PARQUET location '\" + oea.stage2np + \"/m365/TechActivity'\")\r\n",
-					"spark.sql(\"create table if not exists s2_ContosoISD.Calendar using PARQUET location '\" + oea.stage2np + \"/m365/Calendar'\")\r\n",
-					"spark.sql(\"create table if not exists s2_ContosoISD.Org using PARQUET location '\" + oea.stage2np + \"/m365/Org'\")\r\n",
-					"spark.sql(\"create table if not exists s2_ContosoISD.Person using PARQUET location '\" + oea.stage2np + \"/m365/Person'\")\r\n",
-					"spark.sql(\"create table if not exists s2_ContosoISD.PersonIdentifier using PARQUET location '\" + oea.stage2np + \"/m365/PersonIdentifier'\")\r\n",
-					"spark.sql(\"create table if not exists s2_ContosoISD.RefDefinition using PARQUET location '\" + oea.stage2np + \"/m365/RefDefinition'\")\r\n",
-					"spark.sql(\"create table if not exists s2_ContosoISD.Section using PARQUET location '\" + oea.stage2np + \"/m365/Section'\")\r\n",
-					"spark.sql(\"create table if not exists s2_ContosoISD.Session using PARQUET location '\" + oea.stage2np + \"/m365/Session'\")\r\n",
-					"spark.sql(\"create table if not exists s2_ContosoISD.StaffOrgAffiliation using PARQUET location '\" + oea.stage2np + \"/m365/StaffOrgAffiliation'\")\r\n",
-					"spark.sql(\"create table if not exists s2_ContosoISD.StaffSectionMembership using PARQUET location '\" + oea.stage2np + \"/m365/StaffSectionMembership'\")\r\n",
-					"spark.sql(\"create table if not exists s2_ContosoISD.StudentOrgAffiliation using PARQUET location '\" + oea.stage2np + \"/m365/StudentOrgAffiliation'\")\r\n",
-					"spark.sql(\"create table if not exists s2_ContosoISD.StudentSectionMembership using PARQUET location '\" + oea.stage2np + \"/m365/StudentSectionMembership'\")\r\n",
-					"spark.sql(\"create table if not exists s2_ContosoISD.Course using PARQUET location '\" + oea.stage2np + \"/ContosoISD/Course'\")\r\n",
-					"spark.sql(\"create table if not exists s2_ContosoISD.Attendance using PARQUET location '\" + oea.stage2np + \"/ContosoISD/Attendance'\")\r\n",
-					"spark.sql(\"create table if not exists s2_ContosoISD.SectionMark using PARQUET location '\" + oea.stage2np + \"/ContosoISD/SectionMark'\")\r\n",
+					"spark.sql(\"create table if not exists s2_m365_intune.Activity using PARQUET location '\" + oea.stage2np + \"/m365/TechActivity'\")\r\n",
+					"spark.sql(\"create table if not exists s2_m365_intune.Calendar using PARQUET location '\" + oea.stage2np + \"/m365/Calendar'\")\r\n",
+					"spark.sql(\"create table if not exists s2_m365_intune.Org using PARQUET location '\" + oea.stage2np + \"/m365/Org'\")\r\n",
+					"spark.sql(\"create table if not exists s2_m365_intune.Person using PARQUET location '\" + oea.stage2np + \"/m365/Person'\")\r\n",
+					"spark.sql(\"create table if not exists s2_m365_intune.PersonIdentifier using PARQUET location '\" + oea.stage2np + \"/m365/PersonIdentifier'\")\r\n",
+					"spark.sql(\"create table if not exists s2_m365_intune.RefDefinition using PARQUET location '\" + oea.stage2np + \"/m365/RefDefinition'\")\r\n",
+					"spark.sql(\"create table if not exists s2_m365_intune.Section using PARQUET location '\" + oea.stage2np + \"/m365/Section'\")\r\n",
+					"spark.sql(\"create table if not exists s2_m365_intune.Session using PARQUET location '\" + oea.stage2np + \"/m365/Session'\")\r\n",
+					"spark.sql(\"create table if not exists s2_m365_intune.StaffOrgAffiliation using PARQUET location '\" + oea.stage2np + \"/m365/StaffOrgAffiliation'\")\r\n",
+					"spark.sql(\"create table if not exists s2_m365_intune.StaffSectionMembership using PARQUET location '\" + oea.stage2np + \"/m365/StaffSectionMembership'\")\r\n",
+					"spark.sql(\"create table if not exists s2_m365_intune.StudentOrgAffiliation using PARQUET location '\" + oea.stage2np + \"/m365/StudentOrgAffiliation'\")\r\n",
+					"spark.sql(\"create table if not exists s2_m365_intune.StudentSectionMembership using PARQUET location '\" + oea.stage2np + \"/m365/StudentSectionMembership'\")\r\n",
+					"spark.sql(\"create table if not exists s2_m365_intune.Course using PARQUET location '\" + oea.stage2np + \"/ContosoISD/Course'\")\r\n",
+					"spark.sql(\"create table if not exists s2_m365_intune.Attendance using PARQUET location '\" + oea.stage2np + \"/ContosoISD/Attendance'\")\r\n",
+					"spark.sql(\"create table if not exists s2_m365_intune.SectionMark using PARQUET location '\" + oea.stage2np + \"/ContosoISD/SectionMark'\")\r\n",
+					"spark.sql(\"create table if not exists s2_m365_intune.StudentDemographics using PARQUET location '\" + oea.stage2np + \"/ContosoISD/StudentDemographics'\")\r\n",
 					"\r\n",
 					"print(f\"Created spark db's.\\nYou can now open the 'techInequityDashboardContoso v2.pbix' dashboard and change the datasource to point to: {oea.serverless_sql_endpoint}\")"
 				],
-				"execution_count": 7
+				"execution_count": 8
 			},
 			{
 				"cell_type": "markdown",
