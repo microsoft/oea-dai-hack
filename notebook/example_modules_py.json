@@ -95,6 +95,7 @@
 					"        mssparkutils.fs.cp(self.module_path + '/test_data/studentattendance.csv', self.stage1np + '/studentattendance/studentattendance.csv', True)\r\n",
 					"        mssparkutils.fs.cp(self.module_path + '/test_data/studentsectionmark.csv', self.stage1np + '/studentsectionmark/studentsectionmark.csv', True)\r\n",
 					"        mssparkutils.fs.cp(self.module_path + '/test_data/studentdemographics.csv', self.stage1np + '/studentdemographics/studentdemographics.csv', True)\r\n",
+					"        print(\"Copyied\")\r\n",
 					"\r\n",
 					"class M365(BaseOEAModule):\r\n",
 					"    \"\"\"\r\n",
