@@ -1,101 +1,101 @@
-SIS ID,FederalRaceCategory,PrimaryLanguage,ELLStatus,SpecialEducation,LowIncome
-st1,Hispanic,English,,,0
-st2,White,English,,,1
-st3,Hispanic,English,English Learner,Designated Instruction Service,1
-st4,White,French,,,1
-st5,Black,English,,,0
-st6,Black,English,,,1
-st7,Black,English,,,0
-st8,Black,English,,,0
-st9,White,English,,,1
-st10,Hispanic,English,,,1
-st11,Black,English,Redesignated Fluent English Proficient,,1
-st12,American Indian,English,,Designated Instruction Service,0
-st13,Hispanic,English,,Special Day Class,0
-st14,American Indian,English,,,0
-st15,Black,English,,,0
-st16,Black,English,English Learner,,1
-st17,Black,English,,,0
-st18,Asian,English,English Learner,Designated Instruction Service,1
-st19,Asian,English,,,0
-st20,Hispanic,English,,,1
-st21,Asian,Spanish,,,0
-st22,White,Spanish,,,0
-st23,White,English,,,0
-st24,Hispanic,English,,Special Day Class,0
-st25,White,Spanish,,Designated Instruction Service,0
-st26,Black,English,,,1
-st27,Black,English,,,1
-st28,Black,English,,Designated Instruction Service,1
-st29,Asian,English,,,0
-st30,Black,English,,,0
-st31,American Indian,Spanish,,Designated Instruction Service,1
-st32,Asian,English,,Resource Specialty Program,1
-st33,Black,English,Initially Fluent English Proficient,Resource Specialty Program,0
-st34,White,English,,,0
-st35,Asian,English,English Learner,,0
-st36,Asian,Spanish,Redesignated Fluent English Proficient,,1
-st37,White,English,English Learner,,1
-st38,Asian,Spanish,,,1
-st39,White,English,,,0
-st40,White,English,,,0
-st41,Hispanic,English,,,0
-st42,White,English,,,1
-st43,Black,English,,,1
-st44,White,Spanish,Redesignated Fluent English Proficient,,0
-st45,Asian,English,,,0
-st46,White,English,,,0
-st47,Hispanic,English,,,1
-st48,White,English,,Special Day Class,1
-st49,Hispanic,English,English Learner,,0
-st50,Black,English,,,1
-st51,American Indian,Spanish,,,0
-st52,White,English,,,0
-st53,Black,English,,,0
-st54,Hispanic,Spanish,,,1
-st55,Hispanic,English,,,0
-st56,White,Spanish,,,0
-st57,White,English,,,0
-st58,Black,English,,,0
-st59,Hispanic,English,,,1
-st60,Black,English,,,0
-st61,Hispanic,English,,,0
-st62,American Indian,English,,Designated Instruction Service,0
-st63,American Indian,English,Initially Fluent English Proficient,,1
-st64,Black,Spanish,,,1
-st65,Hispanic,German,,,1
-st66,Black,English,Initially Fluent English Proficient,Designated Instruction Service,0
-st67,Black,English,,,1
-st68,Black,English,,,0
-st69,White,English,,,0
-st70,Black,English,,,0
-st71,White,English,,,1
-st72,Black,English,English Learner,,1
-st73,Asian,English,,Special Day Class,0
-st74,Hispanic,English,,,0
-st75,White,English,Initially Fluent English Proficient,Resource Specialty Program,0
-st76,Black,English,,,1
-st77,American Indian,English,English Learner,,0
-st78,Black,English,,,1
-st79,White,English,English Learner,,1
-st80,Hispanic,English,English Learner,,1
-st81,Black,English,,,0
-st82,Asian,Spanish,,,1
-st83,White,Spanish,,,0
-st84,Hispanic,English,,,0
-st85,Hispanic,Spanish,,Designated Instruction Service,0
-st86,White,English,Initially Fluent English Proficient,,0
-st87,Asian,English,,,1
-st88,Black,English,,Designated Instruction Service,0
-st89,Asian,English,English Learner,,0
-st90,White,English,Initially Fluent English Proficient,,0
-st91,Black,English,,,1
-st92,Hispanic,English,,,0
-st93,White,English,,,0
-st94,Asian,English,Initially Fluent English Proficient,Resource Specialty Program,0
-st95,Asian,English,,Resource Specialty Program,0
-st96,Asian,English,,,0
-st97,Asian,English,,,1
-st98,Asian,English,Redesignated Fluent English Proficient,,0
-st99,Asian,Spanish,,,1
-st100,Hispanic,English,,,1
+SIS ID,FederalRaceCategory,PrimaryLanguage,ELLStatus,SpecialEducation,LowIncome,City/Region
+st1,American Indian,Spanish,,,0,Bangalore
+st2,American Indian,English,Initially Fluent English Proficient,,0,Hyderabad
+st3,American Indian,French,,,1,Hyderabad
+st4,Asian,English,,,0,Vizag
+st5,Indian,English,English Learner,,1,Hyderabad
+st6,Asian,English,,,1,Chennai
+st7,Indian,English,,,0,Kochi
+st8,Black,English,,,0,Hyderabad
+st9,Indian,English,,Resource Specialty Program,1,Mysore
+st10,Indian,English,,,0,Bangalore
+st11,White,English,,,0,Bangalore
+st12,Indian,Spanish,,,1,Bangalore
+st13,American Indian,English,,,0,Bangalore
+st14,White,English,,Resource Specialty Program,1,Chennai
+st15,Asian,Spanish,,Designated Instruction Service,1,Bangalore
+st16,Indian,English,English Learner,,0,Munnar
+st17,Indian,Spanish,,,0,Hyderabad
+st18,American Indian,English,,,0,Bangalore
+st19,Asian,English,,,0,Hyderabad
+st20,American Indian,English,,,1,Chennai
+st21,Black,English,,Resource Specialty Program,0,Munnar
+st22,American Indian,English,,,1,Ooty
+st23,American Indian,English,,,1,Bangalore
+st24,Asian,English,,,0,Vizag
+st25,Asian,English,,Designated Instruction Service,0,Hyderabad
+st26,American Indian,English,,,0,Munnar
+st27,American Indian,English,,,0,Kochi
+st28,American Indian,English,Initially Fluent English Proficient,,0,Mysore
+st29,American Indian,English,,,1,Hyderabad
+st30,Indian,English,,,1,Munnar
+st31,Indian,English,English Learner,Resource Specialty Program,0,Hyderabad
+st32,American Indian,English,,,0,Hyderabad
+st33,Black,English,,,1,Mysore
+st34,American Indian,English,English Learner,,0,Bangalore
+st35,Indian,English,,,1,Hyderabad
+st36,American Indian,English,,,0,Mysore
+st37,Asian,English,,,1,Kochi
+st38,Indian,English,,,1,Mysore
+st39,Asian,Spanish,,,0,Mysore
+st40,Asian,English,,,0,Madurai
+st41,Indian,English,,Designated Instruction Service,1,Munnar
+st42,Indian,English,Redesignated Fluent English Proficient,,1,Chennai
+st43,American Indian,English,,,1,Bangalore
+st44,Asian,English,English Learner,,0,Bangalore
+st45,Indian,English,,,0,Pondicherry
+st46,Indian,English,,,0,Hyderabad
+st47,Indian,English,,,0,Vizag
+st48,Indian,English,Redesignated Fluent English Proficient,,1,Kochi
+st49,Black,English,,,0,Vizag
+st50,Black,English,,,0,Mysore
+st51,Asian,English,,,0,Hyderabad
+st52,Black,English,,,0,Vizag
+st53,Indian,English,,,0,Ooty
+st54,American Indian,English,,,1,Hyderabad
+st55,Indian,English,,Special Day Class,0,Bangalore
+st56,Indian,Spanish,,Designated Instruction Service,0,Bangalore
+st57,American Indian,Spanish,,,0,Pondicherry
+st58,American Indian,Spanish,,,1,Ooty
+st59,Black,English,Initially Fluent English Proficient,,1,Kochi
+st60,Indian,English,,,0,Madurai
+st61,Indian,French,,,0,Kochi
+st62,American Indian,English,,,0,Hyderabad
+st63,Indian,English,,,0,Munnar
+st64,Indian,English,,,0,Hyderabad
+st65,Asian,English,,,0,Chennai
+st66,Asian,English,,,1,Bangalore
+st67,Asian,English,,,0,Hyderabad
+st68,Asian,English,,,0,Hyderabad
+st69,American Indian,English,English Learner,,1,Bangalore
+st70,Black,English,,,0,Kochi
+st71,Indian,English,Initially Fluent English Proficient,Special Day Class,0,Bangalore
+st72,American Indian,English,,,0,Munnar
+st73,American Indian,English,,,1,Pondicherry
+st74,Indian,English,,,0,Pondicherry
+st75,Indian,English,English Learner,,1,Vizag
+st76,Indian,English,,Resource Specialty Program,1,Vizag
+st77,Indian,English,Initially Fluent English Proficient,,0,Vizag
+st78,Indian,English,,,0,Pondicherry
+st79,American Indian,English,,Resource Specialty Program,0,Chennai
+st80,American Indian,English,,,1,Vizag
+st81,American Indian,English,,,1,Chennai
+st82,Indian,Spanish,English Learner,,1,Pondicherry
+st83,American Indian,English,,Special Day Class,1,Hyderabad
+st84,Asian,English,English Learner,,0,Munnar
+st85,American Indian,English,,,1,Hyderabad
+st86,American Indian,Spanish,,,0,Ooty
+st87,Indian,English,,Designated Instruction Service,1,Bangalore
+st88,Asian,English,English Learner,,1,Chennai
+st89,American Indian,English,,,0,Vizag
+st90,Asian,English,,,0,Bangalore
+st91,American Indian,English,,,0,Chennai
+st92,Indian,English,,,0,Chennai
+st93,Black,English,,,0,Hyderabad
+st94,Indian,English,,,0,Hyderabad
+st95,American Indian,English,,,1,Pondicherry
+st96,American Indian,Spanish,,,0,Munnar
+st97,Black,English,,,0,Kochi
+st98,Asian,English,,,0,Hyderabad
+st99,Indian,English,English Learner,,1,Hyderabad
+st100,Asian,English,,Designated Instruction Service,1,Hyderabad
