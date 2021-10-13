@@ -4,14 +4,14 @@
 		"nbformat": 4,
 		"nbformat_minor": 2,
 		"bigDataPool": {
-			"referenceName": "spark3p1sm",
+			"referenceName": "spark4p2sm",
 			"type": "BigDataPoolReference"
 		},
 		"sessionProperties": {
-			"driverMemory": "28g",
-			"driverCores": 4,
-			"executorMemory": "28g",
-			"executorCores": 4,
+			"driverMemory": "56g",
+			"driverCores": 8,
+			"executorMemory": "56g",
+			"executorCores": 8,
 			"numExecutors": 4,
 			"conf": {
 				"spark.dynamicAllocation.enabled": "false",
@@ -30,18 +30,18 @@
 				"name": "python"
 			},
 			"a365ComputeOptions": {
-				"id": "/subscriptions/7b9a4896-4541-483f-bdc7-d8f4ec6be3ee/resourceGroups/rg-oea-daihackathon/providers/Microsoft.Synapse/workspaces/syn-oea-daihackathon/bigDataPools/spark3p1sm",
-				"name": "spark3p1sm",
+				"id": "/subscriptions/7b9a4896-4541-483f-bdc7-d8f4ec6be3ee/resourceGroups/rg-oea-daihackathon/providers/Microsoft.Synapse/workspaces/syn-oea-daihackathon/bigDataPools/spark4p2sm",
+				"name": "spark4p2sm",
 				"type": "Spark",
-				"endpoint": "https://syn-oea-daihackathon.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/spark3p1sm",
+				"endpoint": "https://syn-oea-daihackathon.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/spark4p2sm",
 				"auth": {
 					"type": "AAD",
 					"authResource": "https://dev.azuresynapse.net"
 				},
-				"sparkVersion": "3.1",
-				"nodeCount": 3,
-				"cores": 4,
-				"memory": 28,
+				"sparkVersion": "2.4",
+				"nodeCount": 10,
+				"cores": 8,
+				"memory": 56,
 				"automaticScaleJobs": false
 			},
 			"sessionKeepAliveTimeout": 30
@@ -70,7 +70,7 @@
 				"source": [
 					"%run /example_modules_py"
 				],
-				"execution_count": 2
+				"execution_count": null
 			},
 			{
 				"cell_type": "code",
@@ -101,19 +101,27 @@
 					"                                    ['OSVersion', 'string', 'no-op'],\r\n",
 					"                                    ['LastCheckIn', 'timestamp', 'no-op'],\r\n",
 					"                                    ['PrimaryUserUPN', 'string', 'hash'],\r\n",
-					"                                    ['DeviceID', 'string', 'no-op']]\r\n",
+					"                                    ['DeviceID', 'string', 'hash']]\r\n",
 					"\r\n",
 					"    def process_devices_data_from_stage1(self):\r\n",
 					"        logger.info(\"Processing intune reports data from: \" + self.stage1np)\r\n",
 					"        spark_schema = self.oea.to_spark_schema(self.schemas['Devices'])\r\n",
 					"        df = spark.read.csv(self.stage1np_devices + '/*.csv', header='true', schema=spark_schema)\r\n",
 					"        df = df.dropDuplicates(['DeviceID'])\r\n",
-					"        df.coalesce(1).write.format('parquet').mode('overwrite').option(\"mergeSchema\", \"true\").save(self.stage2np + '/intune/devices')\r\n",
+					"        df.write.parquet(self.stage2np + '/Intunes/Devices/devices.parquet', mode='overwrite')\r\n",
+					"\r\n",
+					"    def process_devices_data_from_stage2(self):\r\n",
+					"        spark_schema = self.oea.to_spark_schema(self.schemas['Devices'])\r\n",
+					"        df = spark.read.parquet(self.stage2np + '/Intunes/Devices/*.parquet', header='true', schema=spark_schema)\r\n",
+					"        #sqlContext.registerDataFrameAsTable(spark.read.format('parquet').load(oea.stage2np + '/m365/Intunes/*'), 'Devices')\r\n",
+					"        #df = spark.sql(\"select DeviceID,PrimaryUserUPN,LastCheckIn,OSVersion,OS,Ownership,ManagedBy,DeviceName from Devices\")\r\n",
+					"        df.write.format('parquet').mode('overwrite').save(self.stage2np + '/m365/Intunes/Devices')\r\n",
+					"\r\n",
 					"\r\n",
 					"\r\n",
 					""
 				],
-				"execution_count": 44
+				"execution_count": null
 			},
 			{
 				"cell_type": "code",
@@ -132,7 +140,7 @@
 					"oea = OEA()\r\n",
 					"intune = IntuneModule(oea)"
 				],
-				"execution_count": 45
+				"execution_count": null
 			},
 			{
 				"cell_type": "code",
@@ -150,7 +158,7 @@
 				"source": [
 					"intune.process_devices_data_from_stage1()"
 				],
-				"execution_count": 46
+				"execution_count": null
 			},
 			{
 				"cell_type": "code",
@@ -166,12 +174,30 @@
 					}
 				},
 				"source": [
-					"intune.create_stage2_db('PARQUET')\r\n",
-					"spark.sql('CREATE DATABASE IF NOT EXISTS s2_intune')\r\n",
-					"\r\n",
-					"spark.sql(\"create table if not exists s2_intune.devices using PARQUET location '\" + oea.stage2np + \"/intune/devices'\")"
+					"intune.process_devices_data_from_stage2()"
 				],
-				"execution_count": 48
+				"execution_count": 82
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"#intune.create_stage2_db('parquet')\r\n",
+					"spark.sql('CREATE DATABASE s2_m365_Intune')\r\n",
+					"spark.sql(\"create table if not exists s2_Intune.Devices using PARQUET location '\" + oea.stage2np + \"/m365/Intunes/Devices'\")\r\n",
+					""
+				],
+				"execution_count": 87
 			}
 		]
 	}
