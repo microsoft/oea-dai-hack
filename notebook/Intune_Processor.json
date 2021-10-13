@@ -151,6 +151,27 @@
 					"intune.process_devices_data_from_stage1()"
 				],
 				"execution_count": 46
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"intune.create_stage2_db('PARQUET')\r\n",
+					"spark.sql('CREATE DATABASE IF NOT EXISTS s2_intune')\r\n",
+					"\r\n",
+					"spark.sql(\"create table if not exists s2_intune.devices using PARQUET location '\" + oea.stage2np + \"/intune/devices'\")"
+				],
+				"execution_count": 48
 			}
 		]
 	}
