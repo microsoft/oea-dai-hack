@@ -42,37 +42,42 @@
 						"mappings": [
 							{
 								"source": {
-									"path": "$['value'][0]['givenName']"
+									"path": "['givenName']"
 								},
 								"sink": {
-									"name": "givenName"
+									"name": "givenName",
+									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"path": "$['value'][0]['surname']"
+									"path": "['surname']"
 								},
 								"sink": {
-									"name": "surname"
+									"name": "surname",
+									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"path": "$['value'][0]['userPrincipalName']"
+									"path": "['userPrincipalName']"
 								},
 								"sink": {
-									"name": "userPrincipalName"
+									"name": "userPrincipalName",
+									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"path": "$['value'][0]['id']"
+									"path": "['id']"
 								},
 								"sink": {
-									"name": "id"
+									"name": "id",
+									"type": "String"
 								}
 							}
-						]
+						],
+						"collectionReference": "$['value']"
 					}
 				},
 				"inputs": [
