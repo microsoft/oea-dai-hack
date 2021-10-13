@@ -25,15 +25,302 @@
 						}
 					},
 					"sink": {
-						"type": "JsonSink",
+						"type": "DelimitedTextSink",
 						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
+							"type": "AzureBlobStorageWriteSettings"
 						},
 						"formatSettings": {
-							"type": "JsonWriteSettings"
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
 						}
 					},
-					"enableStaging": false
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['value'][0]['id']"
+								},
+								"sink": {
+									"name": "id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['createdDateTime']"
+								},
+								"sink": {
+									"name": "createdDateTime"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['deviceCategory']"
+								},
+								"sink": {
+									"name": "deviceCategory"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['deviceId']"
+								},
+								"sink": {
+									"name": "deviceId"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['deviceOwnership']"
+								},
+								"sink": {
+									"name": "deviceOwnership"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['deviceVersion']"
+								},
+								"sink": {
+									"name": "deviceVersion"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['displayName']"
+								},
+								"sink": {
+									"name": "displayName"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['domainName']"
+								},
+								"sink": {
+									"name": "domainName"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['enrollmentProfileName']"
+								},
+								"sink": {
+									"name": "enrollmentProfileName"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['enrollmentType']"
+								},
+								"sink": {
+									"name": "enrollmentType"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['manufacturer']"
+								},
+								"sink": {
+									"name": "manufacturer"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['mdmAppId']"
+								},
+								"sink": {
+									"name": "mdmAppId"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['model']"
+								},
+								"sink": {
+									"name": "model"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['onPremisesLastSyncDateTime']"
+								},
+								"sink": {
+									"name": "onPremisesLastSyncDateTime"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['onPremisesSyncEnabled']"
+								},
+								"sink": {
+									"name": "onPremisesSyncEnabled"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['operatingSystem']"
+								},
+								"sink": {
+									"name": "operatingSystem"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['operatingSystemVersion']"
+								},
+								"sink": {
+									"name": "operatingSystemVersion"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['extensionAttributes']['extensionAttribute1']"
+								},
+								"sink": {
+									"name": "extensionAttribute1"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['extensionAttributes']['extensionAttribute2']"
+								},
+								"sink": {
+									"name": "extensionAttribute2"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['extensionAttributes']['extensionAttribute3']"
+								},
+								"sink": {
+									"name": "extensionAttribute3"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['extensionAttributes']['extensionAttribute4']"
+								},
+								"sink": {
+									"name": "extensionAttribute4"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['extensionAttributes']['extensionAttribute5']"
+								},
+								"sink": {
+									"name": "extensionAttribute5"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['extensionAttributes']['extensionAttribute6']"
+								},
+								"sink": {
+									"name": "extensionAttribute6"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['extensionAttributes']['extensionAttribute7']"
+								},
+								"sink": {
+									"name": "extensionAttribute7"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['extensionAttributes']['extensionAttribute8']"
+								},
+								"sink": {
+									"name": "extensionAttribute8"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['extensionAttributes']['extensionAttribute9']"
+								},
+								"sink": {
+									"name": "extensionAttribute9"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['extensionAttributes']['extensionAttribute10']"
+								},
+								"sink": {
+									"name": "extensionAttribute10"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['extensionAttributes']['extensionAttribute11']"
+								},
+								"sink": {
+									"name": "extensionAttribute11"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['extensionAttributes']['extensionAttribute12']"
+								},
+								"sink": {
+									"name": "extensionAttribute12"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['extensionAttributes']['extensionAttribute13']"
+								},
+								"sink": {
+									"name": "extensionAttribute13"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['extensionAttributes']['extensionAttribute14']"
+								},
+								"sink": {
+									"name": "extensionAttribute14"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['extensionAttributes']['extensionAttribute15']"
+								},
+								"sink": {
+									"name": "extensionAttribute15"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['alternativeSecurityIds'][0]['type']"
+								},
+								"sink": {
+									"name": "type"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['alternativeSecurityIds'][0]['identityProvider']"
+								},
+								"sink": {
+									"name": "identityProvider"
+								}
+							},
+							{
+								"source": {
+									"path": "$['value'][0]['alternativeSecurityIds'][0]['key']"
+								},
+								"sink": {
+									"name": "key"
+								}
+							}
+						]
+					}
 				},
 				"inputs": [
 					{
@@ -43,7 +330,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "json",
+						"referenceName": "CSV",
 						"type": "DatasetReference"
 					}
 				]
