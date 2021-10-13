@@ -1,0 +1,16 @@
+{
+	"name": "MicrosoftGraphDevicesEndpoint",
+	"properties": {
+		"description": "Connector to the /devices endpoint",
+		"linkedServiceName": {
+			"referenceName": "Microsoft Graph",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": "/v1.0/devices"
+		},
+		"schema": []
+	}
+}
