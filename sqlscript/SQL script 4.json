@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 4",
+	"properties": {
+		"content": {
+			"query": "SELECT TOP (100) [DeviceName]\n,[ManagedBy]\n,[Ownership]\n,[OS]\n,[OSVersion]\n,[LastCheckIn]\n,[PrimaryUserUPN]\n,[DeviceID]\n FROM [s2_intune].[dbo].[devices]",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "s2_intune",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
