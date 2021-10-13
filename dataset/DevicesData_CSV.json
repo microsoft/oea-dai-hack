@@ -1,0 +1,29 @@
+{
+	"name": "DevicesData_CSV",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "syn-oea-daihackathon-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Devices Integration Data (Intune)"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "Devices.csv",
+					"type": "Expression"
+				},
+				"folderPath": "m365/Intune/Devices",
+				"fileSystem": "stage1np"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

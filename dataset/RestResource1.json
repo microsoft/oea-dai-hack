@@ -1,0 +1,15 @@
+{
+	"name": "RestResource1",
+	"properties": {
+		"description": "Connection to your REST/HTTP",
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": {
+				"value": "v1.0/users",
+				"type": "Expression"
+			}
+		},
+		"schema": []
+	}
+}

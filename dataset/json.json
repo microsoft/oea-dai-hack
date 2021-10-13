@@ -1,0 +1,20 @@
+{
+	"name": "json",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "syn-oea-daihackathon-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "users.json",
+				"folderPath": "m365/AAD/users",
+				"fileSystem": "stage1np"
+			}
+		},
+		"schema": {}
+	}
+}

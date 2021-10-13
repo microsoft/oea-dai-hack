@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 1",
+	"properties": {
+		"content": {
+			"query": "SELECT TOP (100) [Id]\n,[FirstName]\n,[MiddleName]\n,[LastName]\n,[GenerationCode]\n,[Prefix]\n,[EnabledUser]\n,[ExternalId]\n,[CreateDate]\n,[LastModifiedDate]\n,[IsActive]\n,[SourceSystemId]\n FROM [s2_m365].[dbo].[person]",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "s2_m365",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

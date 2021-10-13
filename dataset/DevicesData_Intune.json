@@ -1,0 +1,21 @@
+{
+	"name": "DevicesData_Intune",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Microsoft Graph",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Devices Integration Data (Intune)"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": {
+				"value": "beta/deviceManagement/reports/exportJobs",
+				"type": "Expression"
+			}
+		},
+		"schema": []
+	}
+}
