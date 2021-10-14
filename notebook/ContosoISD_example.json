@@ -150,7 +150,7 @@
 				"source": [
 					"# 1) Land data into stage1 of your data lake, from multiple source systems (this example copies in test data sets that came with the OEA installation).\r\n",
 					"contoso_sis.copy_test_data_to_stage1()\r\n",
-					"#m365.copy_test_data_to_stage1()"
+					"m365.copy_test_data_to_stage1()"
 				],
 				"execution_count": 4
 			},
