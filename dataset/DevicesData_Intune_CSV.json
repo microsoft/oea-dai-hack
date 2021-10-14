@@ -1,0 +1,63 @@
+{
+	"name": "DevicesData_Intune_CSV",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "syn-oea-daihackathon-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Devices Integration Data (Intune)"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "devices.csv",
+					"type": "Expression"
+				},
+				"folderPath": "m365/intune/devices",
+				"fileSystem": "stage1np"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "EntryId",
+				"type": "String"
+			},
+			{
+				"name": "LastCheckIn",
+				"type": "String"
+			},
+			{
+				"name": "Id",
+				"type": "String"
+			},
+			{
+				"name": "DeviceName",
+				"type": "String"
+			},
+			{
+				"name": "Compliant",
+				"type": "String"
+			},
+			{
+				"name": "OS",
+				"type": "String"
+			},
+			{
+				"name": "OSVersion",
+				"type": "String"
+			},
+			{
+				"name": "Ownership",
+				"type": "String"
+			}
+		]
+	}
+}

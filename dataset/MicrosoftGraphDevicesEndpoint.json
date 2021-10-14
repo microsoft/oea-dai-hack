@@ -1,7 +1,7 @@
 {
-	"name": "RestResource1",
+	"name": "MicrosoftGraphDevicesEndpoint",
 	"properties": {
-		"description": "Connection to your REST/HTTP",
+		"description": "Connector to the /devices endpoint",
 		"linkedServiceName": {
 			"referenceName": "Microsoft Graph",
 			"type": "LinkedServiceReference"
@@ -9,10 +9,7 @@
 		"annotations": [],
 		"type": "RestResource",
 		"typeProperties": {
-			"relativeUrl": {
-				"value": "v1.0/users",
-				"type": "Expression"
-			}
+			"relativeUrl": "/v1.0/devices"
 		},
 		"schema": []
 	}

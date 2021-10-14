@@ -4,14 +4,14 @@
 		"nbformat": 4,
 		"nbformat_minor": 2,
 		"bigDataPool": {
-			"referenceName": "spark3p1sm",
+			"referenceName": "spark4p2sm",
 			"type": "BigDataPoolReference"
 		},
 		"sessionProperties": {
-			"driverMemory": "28g",
-			"driverCores": 4,
-			"executorMemory": "28g",
-			"executorCores": 4,
+			"driverMemory": "56g",
+			"driverCores": 8,
+			"executorMemory": "56g",
+			"executorCores": 8,
 			"numExecutors": 4,
 			"conf": {
 				"spark.dynamicAllocation.enabled": "false",
@@ -21,9 +21,6 @@
 		},
 		"metadata": {
 			"saveOutput": true,
-			"synapse_widget": {
-				"version": "0.1"
-			},
 			"enableDebugMode": false,
 			"kernelspec": {
 				"name": "synapse_pyspark",
@@ -33,20 +30,21 @@
 				"name": "python"
 			},
 			"a365ComputeOptions": {
-				"id": "/subscriptions/7b9a4896-4541-483f-bdc7-d8f4ec6be3ee/resourceGroups/rg-oea-daihackathon/providers/Microsoft.Synapse/workspaces/syn-oea-daihackathon/bigDataPools/spark3p1sm",
-				"name": "spark3p1sm",
+				"id": "/subscriptions/7b9a4896-4541-483f-bdc7-d8f4ec6be3ee/resourceGroups/rg-oea-daihackathon/providers/Microsoft.Synapse/workspaces/syn-oea-daihackathon/bigDataPools/spark4p2sm",
+				"name": "spark4p2sm",
 				"type": "Spark",
-				"endpoint": "https://syn-oea-daihackathon.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/spark3p1sm",
+				"endpoint": "https://syn-oea-daihackathon.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/spark4p2sm",
 				"auth": {
 					"type": "AAD",
 					"authResource": "https://dev.azuresynapse.net"
 				},
-				"sparkVersion": "3.1",
-				"nodeCount": 3,
-				"cores": 4,
-				"memory": 28,
-				"extraHeader": null
-			}
+				"sparkVersion": "2.4",
+				"nodeCount": 10,
+				"cores": 8,
+				"memory": 56,
+				"automaticScaleJobs": false
+			},
+			"sessionKeepAliveTimeout": 30
 		},
 		"cells": [
 			{
@@ -73,8 +71,7 @@
 					"\r\n",
 					"# More info\r\n",
 					"See [OEA Solution Guide](https://github.com/microsoft/OpenEduAnalytics/blob/main/docs/OpenEduAnalyticsSolutionGuide.pdf) for more details on this example."
-				],
-				"attachments": null
+				]
 			},
 			{
 				"cell_type": "code",
@@ -93,7 +90,6 @@
 				"source": [
 					"%run /OEA_py"
 				],
-				"attachments": null,
 				"execution_count": 1
 			},
 			{
@@ -113,8 +109,7 @@
 				"source": [
 					"%run /example_modules_py"
 				],
-				"attachments": null,
-				"execution_count": 2
+				"execution_count": null
 			},
 			{
 				"cell_type": "code",
@@ -136,7 +131,6 @@
 					"m365 = M365(oea)\r\n",
 					"contoso_sis = ContosoSIS(oea, 'contoso_sis', False)"
 				],
-				"attachments": null,
 				"execution_count": 3
 			},
 			{
@@ -158,7 +152,6 @@
 					"contoso_sis.copy_test_data_to_stage1()\r\n",
 					"m365.copy_test_data_to_stage1()"
 				],
-				"attachments": null,
 				"execution_count": 4
 			},
 			{
@@ -182,7 +175,6 @@
 					"contoso_sis.process_data_from_stage1()\r\n",
 					"m365.process_activity_data_from_stage1()"
 				],
-				"attachments": null,
 				"execution_count": 5
 			},
 			{
@@ -232,7 +224,6 @@
 					"df = spark.sql(\"select Id, Name, Code, Description, ExternalId, CreateDate, LastModifiedDate, IsActive, CalendarId, 'Math' Department from Course\")\r\n",
 					"df.write.format('parquet').mode('overwrite').save(oea.stage2np + '/ContosoISD/Course')"
 				],
-				"attachments": null,
 				"execution_count": 6
 			},
 			{
@@ -273,7 +264,6 @@
 					"\r\n",
 					"print(f\"Created spark db's.\\nYou can now open the 'techInequityDashboardContoso v2.pbix' dashboard and change the datasource to point to: {oea.serverless_sql_endpoint}\")"
 				],
-				"attachments": null,
 				"execution_count": 7
 			},
 			{
@@ -290,8 +280,7 @@
 					"You can uncomment line 11 in the cell below and run the cell to reset everything and walk through the process again from the top.\r\n",
 					"\r\n",
 					"Note: remember to comment out line 11 again to prevent accidental resetting of the example"
-				],
-				"attachments": null
+				]
 			},
 			{
 				"cell_type": "code",
@@ -320,7 +309,6 @@
 					"# Uncomment the following line and run this cell to reset everything if you want to walk through the process again.\r\n",
 					"#reset_all_processing()"
 				],
-				"attachments": null,
 				"execution_count": 8
 			}
 		]
