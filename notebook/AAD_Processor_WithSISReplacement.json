@@ -163,10 +163,23 @@
 					"            col(\"PersonId\").alias(\"OwnerIdentifier\")).filter(aaddevices_df.Identifier.contains(\"@\"))\r\n",
 					"\r\n",
 					"        aadusers_df.coalesce(1).write.format('csv').mode('overwrite').option(\"mergeSchema\", \"true\").option(\"header\", \"true\").save(self.stage1np_users + '/sis_recombined/')\r\n",
-					"        aaddevices_df.coalesce(1).write.format('csv').mode('overwrite').option(\"mergeSchema\", \"true\").save(self.stage1np_devices + '/sis_recombined/')\r\n",
+					"        aaddevices_df.coalesce(1).write.format('csv').mode('overwrite').option(\"mergeSchema\", \"true\").option(\"header\", \"true\").save(self.stage1np_devices + '/sis_recombined/')\r\n",
+					"\r\n",
+					"    def process_devices_and_users_data_from_stage1(self):        \r\n",
+					"        logger.info(\"Processing Azure AD Device data from: \" + self.stage1np+\"/sis_recombined/\")\r\n",
+					"        spark_schema = self.oea.to_spark_schema(aad.schemas['AAD_Devices'])\r\n",
+					"        df = spark.read.csv(self.stage1np_aad + '/devices/sis_recombined/*.csv', header='true', schema=spark_schema)\r\n",
+					"        df = df.dropDuplicates(['DeviceId'])\r\n",
+					"        df.coalesce(1).write.format('parquet').mode('overwrite').option(\"mergeSchema\", \"true\").save(self.stage2np + '/aad/devices')\r\n",
+					"\r\n",
+					"        logger.info(\"Processing Azure AD users data from: \" + self.stage1np)\r\n",
+					"        spark_schema = self.oea.to_spark_schema(aad.schemas['AAD_Users'])\r\n",
+					"        df = spark.read.csv(self.stage1np_aad + '/users/sis_recombined/*.csv', header='true', schema=spark_schema)\r\n",
+					"        df = df.dropDuplicates(['id'])\r\n",
+					"        df.coalesce(1).write.format('parquet').mode('overwrite').option(\"mergeSchema\", \"true\").save(self.stage2np + '/aad/users')\r\n",
 					""
 				],
-				"execution_count": 75
+				"execution_count": 77
 			},
 			{
 				"cell_type": "code",
@@ -206,7 +219,26 @@
 					"replacer = RecombinantDataReplacer(oea, m365, aad)\r\n",
 					"replacer.replace_identifier_in_aad_devices_and_users_table()"
 				],
-				"execution_count": 76
+				"execution_count": 78
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"spark.sql(\"create table if not exists s2_m365_intune.aad_devices using PARQUET location '\" + oea.stage2np + \"/m365/aad/devices'\")\r\n",
+					"spark.sql(\"create table if not exists s2_m365_intune.aad_users using PARQUET location '\" + oea.stage2np + \"/m365/aad/users'\")"
+				],
+				"execution_count": null
 			}
 		]
 	}
