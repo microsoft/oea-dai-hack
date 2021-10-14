@@ -90,7 +90,7 @@
 				"source": [
 					"%run /OEA_py"
 				],
-				"execution_count": 1
+				"execution_count": 2
 			},
 			{
 				"cell_type": "code",
@@ -109,7 +109,7 @@
 				"source": [
 					"%run /example_modules_py"
 				],
-				"execution_count": 2
+				"execution_count": 3
 			},
 			{
 				"cell_type": "code",
@@ -131,7 +131,7 @@
 					"m365 = M365(oea)\r\n",
 					"contoso_sis = ContosoSIS(oea, 'contoso_sis', False)"
 				],
-				"execution_count": 3
+				"execution_count": 4
 			},
 			{
 				"cell_type": "code",
@@ -208,9 +208,12 @@
 					"df.write.format('parquet').mode('overwrite').save(oea.stage2np + '/ContosoISD/SectionMark')\r\n",
 					"\r\n",
 					"sqlContext.registerDataFrameAsTable(spark.read.format('parquet').load(oea.stage2np + '/contoso_sis/studentdemographics'), 'Demographics')\r\n",
-					"df = spark.sql(\"select sd.SIS_ID ExternalId, p.Id PersonId, sd.FederalRaceCategory, sd.PrimaryLanguage, sd.ELLStatus, sd.SpecialEducation, sd.LowIncome, sd.City_Region \\\r\n",
+					"df = spark.sql(\"select sd.SIS_ID ExternalId, p.Id PersonId, sd.FederalRaceCategory, sd.PrimaryLanguage, \\\r\n",
+					" sd.ELLStatus, sd.SpecialEducation, sd.LowIncome, sd.City_Region, pi.Identifier \\\r\n",
 					"from Demographics sd, Person p, PersonIdentifier pi \\\r\n",
-					"where sd.SIS_ID = p.ExternalId\")\r\n",
+					"where sd.SIS_ID = p.ExternalId \\\r\n",
+					"and p.Id = pi.PersonId \\\r\n",
+					"and pi.Identifier like '%@%'\")\r\n",
 					"df.write.format('parquet').mode('overwrite').save(oea.stage2np + '/ContosoISD/StudentDemographics')\r\n",
 					"\r\n",
 					"# Repeat the above process, this time for student attendance\r\n",
@@ -231,7 +234,7 @@
 					"df = spark.sql(\"select Id, Name, Code, Description, ExternalId, CreateDate, LastModifiedDate, IsActive, CalendarId, 'Math' Department from Course\")\r\n",
 					"df.write.format('parquet').mode('overwrite').save(oea.stage2np + '/ContosoISD/Course')"
 				],
-				"execution_count": 16
+				"execution_count": 15
 			},
 			{
 				"cell_type": "code",
@@ -269,7 +272,7 @@
 					"\r\n",
 					"print(f\"Created spark db's.\\nYou can now open the 'techInequityDashboardContoso v2.pbix' dashboard and change the datasource to point to: {oea.serverless_sql_endpoint}\")"
 				],
-				"execution_count": 19
+				"execution_count": 17
 			},
 			{
 				"cell_type": "markdown",
@@ -332,7 +335,7 @@
 				"source": [
 					"spark.sql(\"DROP TABLE if exists s2_m365_intune.StudentDemographics\")"
 				],
-				"execution_count": 18
+				"execution_count": 16
 			}
 		]
 	}
