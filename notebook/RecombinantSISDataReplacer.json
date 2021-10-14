@@ -52,7 +52,7 @@
 				"source": [
 					"%run /OEA_py"
 				],
-				"execution_count": 44
+				"execution_count": 53
 			},
 			{
 				"cell_type": "code",
@@ -70,7 +70,7 @@
 				"source": [
 					"%run /example_modules_py"
 				],
-				"execution_count": 4
+				"execution_count": 54
 			},
 			{
 				"cell_type": "code",
@@ -88,7 +88,7 @@
 				"source": [
 					"%run /AAD_Processor"
 				],
-				"execution_count": 6
+				"execution_count": 55
 			},
 			{
 				"cell_type": "code",
@@ -106,7 +106,7 @@
 				"source": [
 					"%run Intune_Processor"
 				],
-				"execution_count": 7
+				"execution_count": 56
 			},
 			{
 				"cell_type": "code",
@@ -132,7 +132,7 @@
 					"        self.stage1np_devices = self.stage1np + '/AAD/devices'\r\n",
 					"        self.stage1np_users = self.stage1np + '/AAD/users'\r\n",
 					"        self.stage1np_roster = self.stage1np + '/test_data/DIPData/Roster/'\r\n",
-					"        self.stage1np_intune = self.stage1np + '/intune/devices/'\r\n",
+					"        self.stage1np_intune = self.stage1np + '/intune/devices'\r\n",
 					"\r\n",
 					"    def replace_identifier_in_aad_devices_and_users_table(self):\r\n",
 					"        personidentifier_path = self.stage1np_roster + '/PersonIdentifier.csv'\r\n",
@@ -221,7 +221,7 @@
 					"        df.coalesce(1).write.format('parquet').mode('overwrite').save(self.stage2np + '/intune/devices')\r\n",
 					""
 				],
-				"execution_count": 40
+				"execution_count": 59
 			},
 			{
 				"cell_type": "code",
@@ -239,7 +239,7 @@
 				"source": [
 					""
 				],
-				"execution_count": 89
+				"execution_count": null
 			},
 			{
 				"cell_type": "code",
@@ -263,7 +263,7 @@
 					"replacer.replace_identifier_in_aad_devices_and_users_table()\r\n",
 					"replacer.process_devices_and_users_data_from_stage1()"
 				],
-				"execution_count": 43
+				"execution_count": 60
 			},
 			{
 				"cell_type": "code",
@@ -286,11 +286,11 @@
 					"#spark.sql(\"drop table s2_m365_intune.aad_devices\")\r\n",
 					"#spark.sql(\"drop table s2_m365_intune.intune_devices\")\r\n",
 					"\r\n",
-					"#spark.sql(\"create table if not exists s2_m365_intune.aad_devices using PARQUET location '\" + oea.stage2np + \"/m365/aad/devices'\")\r\n",
-					"#spark.sql(\"create table if not exists s2_m365_intune.aad_users using PARQUET location '\" + oea.stage2np + \"/m365/aad/users'\")\r\n",
+					"spark.sql(\"create table if not exists s2_m365_intune.aad_devices using PARQUET location '\" + oea.stage2np + \"/m365/aad/devices'\")\r\n",
+					"spark.sql(\"create table if not exists s2_m365_intune.aad_users using PARQUET location '\" + oea.stage2np + \"/m365/aad/users'\")\r\n",
 					"spark.sql(\"create table if not exists s2_m365_intune.intune_devices using PARQUET location '\" + oea.stage2np + \"/intunes/devices/'\")"
 				],
-				"execution_count": 42
+				"execution_count": 61
 			}
 		]
 	}
