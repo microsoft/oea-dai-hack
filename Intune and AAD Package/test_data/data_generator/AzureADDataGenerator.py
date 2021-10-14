@@ -4,6 +4,8 @@ import random
 import os
 import shutil
 
+import faker
+
 MODELS = ['null', 'Surface Go', 'TravelMate B311-31', 'OEMST Product Name DV', 'HP Stream 11 Pro G5', 'Virtual Machine', 'VivoBook_ASUS Laptop E410MA_L410MA', 'HP Stream Laptop 11-ak0xxx','Surface Pro 6']
 OPERATING_SYSTEM = ['Windows', 'macOS', 'AndroidForWork', 'iOS/iPadOS', 'Windows Mobile', 'IPhone']
 
@@ -41,14 +43,33 @@ class AzureAdDataGenerator:
         Faker.seed(1)
 
     def generate_data(self,writer):
-        for Id in AzureAdIDs:
-            Result.append({
-                "id": Id,
-                "deviceId": self.faker.uuid4().replace('-',''),
-                "model": random.choice(MODELS),
-                "operatingSystem":random.choice(OPERATING_SYSTEM)
+        users = []
+        devices = []
+        for i in range(100):
+            fname = self.faker.first_name()
+            lname = self.faker.last_name()
+            users.append({
+                'givenName': fname + ' ' + lname,
+                'surname': fname,
+                'userPrincipalName': '{}@{}'.format(fname+lname, self.faker.free_email_domain()),
+                'id': self.faker.uuid4
             })
-        writer.write(f'AzureAD/devicesInfo.csv', self.list_of_dict_to_csv(Result))
+        for user in users:
+            devices.append({
+                'EntryId': self.faker.uuid4(),
+                'LastCheckIn': self.faker.date_time_between(start_date='-10d',end_date='now'),
+                'DeviceId': self.faker.uuid4(),
+                'DeviceName': '',
+                'Compliant': random.choice(['Comliant','Non Compliant']),
+                'IsManaged': random.choice(['Yes','No']),
+                'OS': random.choice(['Windows','macOS','Android']),
+                'OSVersion':'10.{}.{}.{}'.format(random.choice(range(100)),random.choice(range(100)),random.choice(range(100))),
+                'isCompliant': random.choice(['Yes','No']),
+                'Ids': user['id'],
+                'Ownership':''
+            })
+        writer.write(f'AzureAD/device.csv', self.list_of_dict_to_csv(devices))
+        writer.write(f'AzureAD/user.csv', self.list_of_dict_to_csv(users))
 
     def list_of_dict_to_csv(self,list_of_dict, includeHeaders = True):
         csv_str = ''
