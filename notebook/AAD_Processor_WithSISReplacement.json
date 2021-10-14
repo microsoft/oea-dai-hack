@@ -88,7 +88,7 @@
 				"source": [
 					"%run /AAD_Processor"
 				],
-				"execution_count": 24
+				"execution_count": 8
 			},
 			{
 				"cell_type": "code",
@@ -104,26 +104,52 @@
 					}
 				},
 				"source": [
-					"import IntuneAADPackage\r\n",
+					"from pyspark.sql.functions import monotonically_increasing_id, row_number\r\n",
+					"from pyspark.sql.functions import col\r\n",
+					"from pyspark.sql.window import Window\r\n",
 					"\r\n",
 					"class RecombinantDataReplacer(BaseOEAModule):\r\n",
-					"    def __init__(self, oea, m365, source_folder='m365'):\r\n",
+					"    def __init__(self, oea, m365, aad, source_folder='m365'):\r\n",
 					"        BaseOEAModule.__init__(self, oea, source_folder)\r\n",
 					"        self.stage1np_devices = self.stage1np + '/m365/AAD/devices'\r\n",
-					"        self.stage1np_users = self.stage1np + '/m365/AAD/devices'\r\n",
+					"        self.stage1np_users = self.stage1np + '/AAD/users'\r\n",
 					"        self.stage1np_roster = self.stage1np + '/test_data/DIPData/Roster/'\r\n",
-					"    \r\n",
+					"\r\n",
 					"    def replace_identifier_in_aad_devices_table(self):\r\n",
 					"        personidentifier_path = self.stage1np_roster + '/PersonIdentifier.csv'\r\n",
 					"        spark_schema = self.oea.to_spark_schema(m365.schemas['PersonIdentifier'])\r\n",
-					"        df = spark.read.csv(personidentifier_path, header='false', schema=spark_schema)\r\n",
-					"        print(df.count())\r\n",
-					"    \r\n",
+					"        personidentifier_df = spark.read.csv(personidentifier_path, header='false', schema=spark_schema)\r\n",
+					"\r\n",
+					"        person_path = self.stage1np_roster + '/Person.csv'\r\n",
+					"        spark_schema = self.oea.to_spark_schema(m365.schemas['PersonIdentifier'])\r\n",
+					"        person_df = spark.read.csv(personidentifier_path, header='false', schema=spark_schema)\r\n",
+					"\r\n",
+					"        aadusers_path = self.stage1np_users + \"/users.csv\"\r\n",
+					"        spark_schema = self.oea.to_spark_schema(aad.schemas['AAD_Users'])\r\n",
+					"        df = spark.read.csv(aadusers_path, header='true')\r\n",
+					"\r\n",
+					"        #print(df.select(\"Identifier\").show())\r\n",
+					"        df = df.limit(min(personidentifier_df.count(), df.count()))\r\n",
+					"\r\n",
+					"        df=df.withColumn('row_index', row_number().over(Window.orderBy(monotonically_increasing_id())))\r\n",
+					"        personidentifier_df=personidentifier_df.withColumn('row_index', row_number().over(Window.orderBy(monotonically_increasing_id())))\r\n",
+					"        person_df=personidentifier_df.withColumn('row_index', row_number().over(Window.orderBy(monotonically_increasing_id())))\r\n",
+					"\r\n",
+					"        df = df.join(personidentifier_df, on=[\"row_index\"]).drop(\"row_index\")\r\n",
+					"        users_df = df.select(\r\n",
+					"            col(\"givenName\").alias(\"givenName\"),\r\n",
+					"            col(\"surname\").alias(\"surname\"),\r\n",
+					"            col(\"Identifier\").alias(\"userPrincipalName\"),\r\n",
+					"            col(\"PersonId\").alias(\"id\"))\r\n",
+					"        print(df.show())\r\n",
+					"        print(personidentifier_df.show())\r\n",
+					"        print(person_df.show())\r\n",
+					"\r\n",
 					"    def replace_identifier_in_aad_users_table(self):\r\n",
 					"        pass\r\n",
 					""
 				],
-				"execution_count": 22
+				"execution_count": 49
 			},
 			{
 				"cell_type": "code",
@@ -141,11 +167,11 @@
 				"source": [
 					"oea = OEA()\r\n",
 					"m365 = M365(oea)\r\n",
-					"aad = Intune\r\n",
-					"replacer = RecombinantDataReplacer(oea, m365)\r\n",
+					"aad = IntuneAADPackage(oea)\r\n",
+					"replacer = RecombinantDataReplacer(oea, m365, aad)\r\n",
 					"replacer.replace_identifier_in_aad_devices_table()"
 				],
-				"execution_count": 20
+				"execution_count": 50
 			}
 		]
 	}
