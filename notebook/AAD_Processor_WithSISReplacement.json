@@ -1,5 +1,5 @@
 {
-	"name": "RecombinantDataReplacer",
+	"name": "AAD_Processor_WithSISReplacement",
 	"properties": {
 		"nbformat": 4,
 		"nbformat_minor": 2,
@@ -68,8 +68,13 @@
 				},
 				"source": [
 					"class RecombinantDataReplacer(BaseOEAModule):\r\n",
-					"     BaseOEAModule.__init__(self, oea, source_folder)\r\n",
-					"     self.stage1np_devices = self.stage1np + '/intune/devices'"
+					"    def __init__(self, oea, source_folder='m365'):\r\n",
+					"        BaseOEAModule.__init__(self, oea, source_folder)\r\n",
+					"        self.stage1np_devices = self.stage1np + '/m365/AAD/devices'\r\n",
+					"        self.stage1np_users = self.stage1np + '/m365/AAD/devices'\r\n",
+					"    \r\n",
+					"    def replace_identifier_in_devices_table():\r\n",
+					"        "
 				],
 				"execution_count": null
 			}
