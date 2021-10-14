@@ -2,7 +2,7 @@
 	"name": "SQL script 1",
 	"properties": {
 		"content": {
-			"query": "SELECT TOP (100) [EntryId]\n,[LastCheckIn]\n,[DeviceId]\n,[DeviceName]\n,[Compliant]\n,[IsManaged]\n,[OS]\n,[OSVersion]\n,[isCompliant]\n,[Ids]\n,[Ownership]\n FROM [s2_m365_intune].[dbo].[aad_devices]",
+			"query": "SELECT * from [s2_]",
 			"metadata": {
 				"language": "sql"
 			},
