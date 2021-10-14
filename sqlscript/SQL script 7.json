@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 7",
+	"properties": {
+		"content": {
+			"query": "SELECT * FROM\n[s2_m365_intune].[dbo].[studentdemographics] sd\nJOIN [s2_m365_intune].[dbo].[intune_devices] id\nON id.PrimaryUserUPN = sd.Identifier",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "s2_m365_intune",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

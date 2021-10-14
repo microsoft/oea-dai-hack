@@ -52,7 +52,7 @@
 				"source": [
 					"%run /OEA_py"
 				],
-				"execution_count": 1
+				"execution_count": 3
 			},
 			{
 				"cell_type": "code",
@@ -70,7 +70,7 @@
 				"source": [
 					"%run /example_modules_py"
 				],
-				"execution_count": 2
+				"execution_count": 4
 			},
 			{
 				"cell_type": "code",
@@ -112,7 +112,7 @@
 					"        df.coalesce(1).write.format('parquet').mode('overwrite').option(\"mergeSchema\", \"true\").save(self.stage2np + '/intune/devices')\r\n",
 					"        \r\n",
 					"    def process_devices_data_from_stage2(self):\r\n",
-					"        spark_schema = self.oea.to_spark_schema(self.schemas['Devices'])\r\n",
+					"        spark_schema = self.oea.to_spark_schema(self.schemas['Intune_Devices'])\r\n",
 					"        df = spark.read.parquet(self.stage2np + '/intunes/devices/*.parquet', header='true', schema=spark_schema)\r\n",
 					"        #sqlContext.registerDataFrameAsTable(spark.read.format('parquet').load(oea.stage2np + '/m365/Intunes/*'), 'Devices')\r\n",
 					"        #df = spark.sql(\"select DeviceID,PrimaryUserUPN,LastCheckIn,OSVersion,OS,Ownership,ManagedBy,DeviceName from Devices\")\r\n",
@@ -122,7 +122,7 @@
 					"\r\n",
 					""
 				],
-				"execution_count": 2
+				"execution_count": 5
 			},
 			{
 				"cell_type": "code",
@@ -141,7 +141,7 @@
 					"oea = OEA()\r\n",
 					"intune = IntuneModule(oea)"
 				],
-				"execution_count": 11
+				"execution_count": 6
 			},
 			{
 				"cell_type": "code",
@@ -159,7 +159,7 @@
 				"source": [
 					"intune.process_devices_data_from_stage1()"
 				],
-				"execution_count": 6
+				"execution_count": 7
 			},
 			{
 				"cell_type": "code",
@@ -177,7 +177,7 @@
 				"source": [
 					"intune.process_devices_data_from_stage2()"
 				],
-				"execution_count": 12
+				"execution_count": 8
 			},
 			{
 				"cell_type": "code",
@@ -197,7 +197,7 @@
 					"spark.sql(\"create table if not exists s2_m365_intune.devices using PARQUET location '\" + oea.stage2np + \"/m365/intunes/devices'\")\r\n",
 					""
 				],
-				"execution_count": 13
+				"execution_count": 9
 			},
 			{
 				"cell_type": "code",
