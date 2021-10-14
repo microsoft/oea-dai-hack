@@ -45,21 +45,17 @@ class AzureIntuneDataGenerator:
     def generate_data(self,writer):
         intune_data = []
         device = random.choice(DEVICE_DATA)
-        
-        _path = os.path.dirname(__file__)
-        print(_path)
-        reader = csv.reader(open(f"users.csv"))
 
-        for row in reader:
+        for _ in range(100):
             intune_data.append({
                 'DeviceId': self.faker.uuid4(),
                 'Model': '{} {}'.format(device['Make'],random.choice(device['Model'])), 
                 'LastContact': str(self.faker.date_time_between(start_date='-30d', end_date='now')),
-                'UPN': row[2],
+                'UPN': self.faker.free_email(),
                 'OS': random.choice(OS_TYPES)
             })
     
-        writer.write(f'Intune/Activity.csv',self.list_of_dict_to_csv(intune_data))
+        writer.write(f'Intune/device.csv',self.list_of_dict_to_csv(intune_data))
 
     def list_of_dict_to_csv(self,list_of_dict, includeHeaders = True):
         csv_str = ''
