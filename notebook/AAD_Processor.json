@@ -165,7 +165,7 @@
 					}
 				},
 				"source": [
-					"intune_aad.process_devices_data_from_stage1()"
+					"#intune_aad.process_devices_data_from_stage1()"
 				],
 				"execution_count": 6
 			},
@@ -184,9 +184,9 @@
 				},
 				"source": [
 					"\r\n",
-					"spark.sql(\"create table if not exists s2_m365_intune.intune_devices using PARQUET location '\" + oea.stage2np + \"/m365/intune/devices'\")\r\n",
-					"spark.sql(\"create table if not exists s2_m365_intune.aad_devices using PARQUET location '\" + oea.stage2np + \"/m365/aad/devices'\")\r\n",
-					"spark.sql(\"create table if not exists s2_m365_intune.aad_users using PARQUET location '\" + oea.stage2np + \"/m365/aad/users'\")"
+					"#spark.sql(\"create table if not exists s2_m365_intune.intune_devices using PARQUET location '\" + oea.stage2np + \"/m365/intune/devices'\")\r\n",
+					"#spark.sql(\"create table if not exists s2_m365_intune.aad_devices using PARQUET location '\" + oea.stage2np + \"/m365/aad/devices'\")\r\n",
+					"#spark.sql(\"create table if not exists s2_m365_intune.aad_users using PARQUET location '\" + oea.stage2np + \"/m365/aad/users'\")"
 				],
 				"execution_count": 7
 			},
