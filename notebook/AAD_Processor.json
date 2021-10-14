@@ -119,7 +119,7 @@
 					"        df = df.dropDuplicates(['DeviceId'])\r\n",
 					"        df = df.withColumn(\"OwnerIdentifier\", f.regexp_extract(df[\"Ids\"], \"GID]:(.*):\", 1))\r\n",
 					"        df.coalesce(1).write.format('parquet').mode('overwrite').option(\"mergeSchema\", \"true\").save(self.stage2np + '/aad/devices')\r\n",
-					"        \r\n",
+					"\r\n",
 					"        logger.info(\"Processing Azure AD users data from: \" + self.stage1np)\r\n",
 					"        spark_schema = self.oea.to_spark_schema(self.schemas['AAD_Users'])\r\n",
 					"        df = spark.read.csv(self.stage1np_aad + '/users/users.csv', header='true', schema=spark_schema)\r\n",
