@@ -67,7 +67,9 @@
 					}
 				},
 				"source": [
-					"class RecombinantDataReplacer(BaseOEAModule)"
+					"class RecombinantDataReplacer(BaseOEAModule):\r\n",
+					"     BaseOEAModule.__init__(self, oea, source_folder)\r\n",
+					"     self.stage1np_devices = self.stage1np + '/intune/devices'"
 				],
 				"execution_count": null
 			}
