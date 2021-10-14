@@ -1,5 +1,5 @@
 {
-	"name": "AAD_Processor_WithSISReplacement",
+	"name": "RecombinantSISDataReplacer",
 	"properties": {
 		"nbformat": 4,
 		"nbformat_minor": 2,
@@ -70,7 +70,7 @@
 				"source": [
 					"%run /example_modules_py"
 				],
-				"execution_count": 2
+				"execution_count": 4
 			},
 			{
 				"cell_type": "code",
@@ -87,6 +87,24 @@
 				},
 				"source": [
 					"%run /AAD_Processor"
+				],
+				"execution_count": 5
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"%run Intune_Processor"
 				],
 				"execution_count": 8
 			},
@@ -109,11 +127,12 @@
 					"from pyspark.sql.window import Window\r\n",
 					"\r\n",
 					"class RecombinantDataReplacer(BaseOEAModule):\r\n",
-					"    def __init__(self, oea, m365, aad, source_folder='m365'):\r\n",
+					"    def __init__(self, oea, m365, aad, intune, source_folder='m365'):\r\n",
 					"        BaseOEAModule.__init__(self, oea, source_folder)\r\n",
 					"        self.stage1np_devices = self.stage1np + '/AAD/devices'\r\n",
 					"        self.stage1np_users = self.stage1np + '/AAD/users'\r\n",
 					"        self.stage1np_roster = self.stage1np + '/test_data/DIPData/Roster/'\r\n",
+					"        self.stage1np_intune = self.stage1np + '/intune/devices/'\r\n",
 					"\r\n",
 					"    def replace_identifier_in_aad_devices_and_users_table(self):\r\n",
 					"        personidentifier_path = self.stage1np_roster + '/PersonIdentifier.csv'\r\n",
@@ -132,6 +151,10 @@
 					"        spark_schema = self.oea.to_spark_schema(aad.schemas['AAD_Devices'])\r\n",
 					"        aaddevices_df = spark.read.csv(aaddevices_path, header='true')\r\n",
 					"\r\n",
+					"        intunedevices_path = self.stage1np_intune + \"/devices.csv\"\r\n",
+					"        spark_schema = self.oea.to_spark_schema(intune.schemas['Intune_Devices'])\r\n",
+					"        intunedevices_df = spark.read.csv(intunedevices_path, header='true')\r\n",
+					"\r\n",
 					"        #print(df.select(\"Identifier\").show())\r\n",
 					"        aadusers_df = aadusers_df.limit(min(personidentifier_df.count(), aadusers_df.count()))\r\n",
 					"\r\n",
@@ -139,6 +162,7 @@
 					"        aaddevices_df=aaddevices_df.withColumn('row_index', row_number().over(Window.orderBy(monotonically_increasing_id())))\r\n",
 					"        personidentifier_df=personidentifier_df.withColumn('row_index', row_number().over(Window.orderBy(monotonically_increasing_id())))\r\n",
 					"        person_df=personidentifier_df.withColumn('row_index', row_number().over(Window.orderBy(monotonically_increasing_id())))\r\n",
+					"        intunedevices_df=intunedevices_df.withColumn('row_index', row_number().over(Window.orderBy(monotonically_increasing_id())))\r\n",
 					"\r\n",
 					"        aadusers_df = aadusers_df.join(personidentifier_df, on=[\"row_index\"]).drop(\"row_index\")\r\n",
 					"        aadusers_df = aadusers_df.select(\r\n",
@@ -162,8 +186,11 @@
 					"            col(\"Ownership\").alias(\"Ownership\"),\r\n",
 					"            col(\"PersonId\").alias(\"OwnerIdentifier\")).filter(aaddevices_df.Identifier.contains(\"@\"))\r\n",
 					"\r\n",
-					"        aadusers_df.coalesce(1).write.format('csv').mode('overwrite').option(\"mergeSchema\", \"true\").option(\"header\", \"true\").save(self.stage1np_users + '/sis_recombined/')\r\n",
-					"        aaddevices_df.coalesce(1).write.format('csv').mode('overwrite').option(\"mergeSchema\", \"true\").option(\"header\", \"true\").save(self.stage1np_devices + '/sis_recombined/')\r\n",
+					"        intunedevices_df = intunedevices_df.join(personidentifier_df, on=[\"row_index\"]).drop(\"row_index\")\r\n",
+					"        print(intunedevices_df.show())\r\n",
+					"\r\n",
+					"        #aadusers_df.coalesce(1).write.format('csv').mode('overwrite').option(\"mergeSchema\", \"true\").option(\"header\", \"true\").save(self.stage1np_users + '/sis_recombined/')\r\n",
+					"        #aaddevices_df.coalesce(1).write.format('csv').mode('overwrite').option(\"mergeSchema\", \"true\").option(\"header\", \"true\").save(self.stage1np_devices + '/sis_recombined/')\r\n",
 					"\r\n",
 					"    def process_devices_and_users_data_from_stage1(self):        \r\n",
 					"        logger.info(\"Processing Azure AD Device data from: \" + self.stage1np_devices+\"/sis_recombined/\")\r\n",
@@ -178,7 +205,7 @@
 					"        df.coalesce(1).write.format('parquet').mode('overwrite').option(\"mergeSchema\", \"true\").save(self.stage2np + '/aad/users')\r\n",
 					""
 				],
-				"execution_count": 86
+				"execution_count": 2
 			},
 			{
 				"cell_type": "code",
@@ -215,11 +242,12 @@
 					"oea = OEA()\r\n",
 					"m365 = M365(oea)\r\n",
 					"aad = IntuneAADPackage(oea)\r\n",
-					"replacer = RecombinantDataReplacer(oea, m365, aad)\r\n",
+					"intune = IntuneModule()\r\n",
+					"replacer = RecombinantDataReplacer(oea, m365, aad, intune)\r\n",
 					"replacer.replace_identifier_in_aad_devices_and_users_table()\r\n",
 					"replacer.process_devices_and_users_data_from_stage1()"
 				],
-				"execution_count": 90
+				"execution_count": 3
 			},
 			{
 				"cell_type": "code",
