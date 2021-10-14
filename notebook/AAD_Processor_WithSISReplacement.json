@@ -162,11 +162,29 @@
 					"            col(\"Ownership\").alias(\"Ownership\"),\r\n",
 					"            col(\"PersonId\").alias(\"OwnerIdentifier\")).filter(aaddevices_df.Identifier.contains(\"@\"))\r\n",
 					"\r\n",
-					"        aadusers_df.coalesce(1).write.format('csv').mode('overwrite').option(\"mergeSchema\", \"true\").save(self.stage1np_users + '/sis_recombined/')\r\n",
+					"        aadusers_df.coalesce(1).write.format('csv').mode('overwrite').option(\"mergeSchema\", \"true\").option(\"header\", \"true\").save(self.stage1np_users + '/sis_recombined/')\r\n",
 					"        aaddevices_df.coalesce(1).write.format('csv').mode('overwrite').option(\"mergeSchema\", \"true\").save(self.stage1np_devices + '/sis_recombined/')\r\n",
 					""
 				],
-				"execution_count": 69
+				"execution_count": 75
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					""
+				],
+				"execution_count": null
 			},
 			{
 				"cell_type": "code",
@@ -186,9 +204,9 @@
 					"m365 = M365(oea)\r\n",
 					"aad = IntuneAADPackage(oea)\r\n",
 					"replacer = RecombinantDataReplacer(oea, m365, aad)\r\n",
-					"replacer.replace_identifier_in_aad_devices_table()"
+					"replacer.replace_identifier_in_aad_devices_and_users_table()"
 				],
-				"execution_count": 70
+				"execution_count": 76
 			}
 		]
 	}
