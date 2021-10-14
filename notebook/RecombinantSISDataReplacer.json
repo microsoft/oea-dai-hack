@@ -106,7 +106,7 @@
 				"source": [
 					"%run Intune_Processor"
 				],
-				"execution_count": 8
+				"execution_count": 1
 			},
 			{
 				"cell_type": "code",
