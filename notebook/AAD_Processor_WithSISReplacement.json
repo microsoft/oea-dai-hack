@@ -239,13 +239,13 @@
 					"#spark.sql('CREATE DATABASE IF NOT EXISTS s2_m365_intune_test')\r\n",
 					"\r\n",
 					"# Uncomment below 2 lines if doing a rerun\r\n",
-					"spark.sql(\"drop table s2_m365_intune.aad_devices\")\r\n",
-					"spark.sql(\"drop table s2_m365_intune.aad_devices\")\r\n",
+					"#spark.sql(\"drop table s2_m365_intune.aad_devices\")\r\n",
+					"spark.sql(\"drop table s2_m365_intune.aad_users\")\r\n",
 					"\r\n",
 					"spark.sql(\"create table if not exists s2_m365_intune.aad_devices using PARQUET location '\" + oea.stage2np + \"/m365/aad/devices'\")\r\n",
 					"spark.sql(\"create table if not exists s2_m365_intune.aad_users using PARQUET location '\" + oea.stage2np + \"/m365/aad/users'\")"
 				],
-				"execution_count": 91
+				"execution_count": 93
 			}
 		]
 	}
