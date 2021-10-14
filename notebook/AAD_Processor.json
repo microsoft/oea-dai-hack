@@ -70,7 +70,7 @@
 				"source": [
 					"%run /example_modules_py"
 				],
-				"execution_count": 4
+				"execution_count": 3
 			},
 			{
 				"cell_type": "code",
@@ -130,7 +130,7 @@
 					"\r\n",
 					""
 				],
-				"execution_count": 23
+				"execution_count": 4
 			},
 			{
 				"cell_type": "code",
@@ -149,7 +149,7 @@
 					"oea = OEA()\r\n",
 					"intune_aad = IntuneAADPackage(oea)"
 				],
-				"execution_count": 24
+				"execution_count": 5
 			},
 			{
 				"cell_type": "code",
@@ -167,7 +167,7 @@
 				"source": [
 					"intune_aad.process_devices_data_from_stage1()"
 				],
-				"execution_count": 25
+				"execution_count": 6
 			},
 			{
 				"cell_type": "code",
@@ -188,7 +188,7 @@
 					"spark.sql(\"create table if not exists s2_m365_intune.aad_devices using PARQUET location '\" + oea.stage2np + \"/m365/aad/devices'\")\r\n",
 					"spark.sql(\"create table if not exists s2_m365_intune.aad_users using PARQUET location '\" + oea.stage2np + \"/m365/aad/users'\")"
 				],
-				"execution_count": 1
+				"execution_count": 7
 			},
 			{
 				"cell_type": "code",
@@ -207,7 +207,7 @@
 					"#spark.sql(\"Drop table s2_m365_intune.aad_devices\")\r\n",
 					"#spark.sql('create table if not exists s2_intune_aad.intune_aad_data as select * from s2_intune_aad.aad_devices d, s2_intune_aad.aad_users u where u.id = d.deviceId')"
 				],
-				"execution_count": 26
+				"execution_count": 8
 			}
 		]
 	}
