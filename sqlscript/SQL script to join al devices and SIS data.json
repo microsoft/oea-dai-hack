@@ -1,0 +1,17 @@
+{
+	"name": "SQL script to join al devices and SIS data",
+	"properties": {
+		"content": {
+			"query": "SELECT * FROM\n[s2_m365_intune].[dbo].[aad_users] u\nJOIN [s2_m365_intune].[dbo].[aad_devices] d\nON d.OwnerIdentifier = u.id\nJOIN [s2_m365_intune].[dbo].[studentdemographics] sd\nON sd.Identifier = userPrincipalName",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "s2_m365_intune_test",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
