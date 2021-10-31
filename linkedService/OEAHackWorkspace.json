@@ -1,0 +1,11 @@
+{
+	"name": "OEAHackWorkspace",
+	"properties": {
+		"annotations": [],
+		"type": "PowerBIWorkspace",
+		"typeProperties": {
+			"workspaceID": "OEA_Hack",
+			"tenantID": "178ab4db-1ad5-49ad-86a7-06a29409af8a"
+		}
+	}
+}
